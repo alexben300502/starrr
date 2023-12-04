@@ -62,6 +62,7 @@ jobs:
           app-name: 'starrr-devops-project'
           slot-name: 'Production'
           package: .
+          
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D07E5FF7B07E434F8B7726DF45568DC3 }}
           environment-variables: |
             REDIS_HOST=localhost
