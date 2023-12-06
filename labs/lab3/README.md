@@ -24,6 +24,6 @@
 # Starting the Application & the server: command "npm start"
 
 # Author information 
-# BENSARSA Alexandre 
+BENSARSA Alexandre 
 # CHAOUACHI Soraya
 
