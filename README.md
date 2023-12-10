@@ -17,6 +17,15 @@ All the test are functioning and we had respectivelly : 1 test for the Redis con
 
 # 2. Application of CI/CD pipeline 
 
-----We configure github worflow for the userapi (project folder). After going to actions, we configure the YML file with redis configuration et node.js configuration. After that, we see that the automated tests are working. 
+----We configure github worflow for the userapi (project folder). After going to actions, we configure the YML file with redis configuration et node.js configuration. After that, we see that the automated tests are working.  
 
+# 5  Make container orchestration using Docker Compose 
+
+In this part of our project, we will be creating a  docker-compose.yml (mettre le lien) to start the <br>
+application. This file will contain Redis and the web application root. <br>
+We managed to run in with the command “docker-compose up” to be able to run it into the container we <br>
+have just created. <br>
+Indeed,The command "docker-compose up" is used to start and to run an entire Docker application. <br>
+
+Now we are going to use the software postman which is a tool for testing  and interacting with application programming interfaces.  <br>
 
