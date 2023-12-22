@@ -35,10 +35,10 @@ echo "http://$GATEWAY_URL/productpage"
 That will display the address of the product page of the bookinfo page. 
 
 After that we can access the kiali dashboard thanks to the commands : 
-![Image4](images_lab9/Image 4.png)
+![Image4](images_lab9/Image4.png)
 
 That will redirect to the kali dashboard : 
-![Image5](images_lab9/Image 5.png)
+![Image5](images_lab9/Image5.png)
 ![Image6](images_lab9/image6.png)
 
 ## 2. Routing
