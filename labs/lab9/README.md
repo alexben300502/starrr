@@ -20,8 +20,7 @@ First we configure Istio using the documentation of the official website. We obt
 ![Image1](images_lab9/Image1.png)
 
 Then we add the gateways : 
-Capture d'écran 2023-12-22 192518.png
-![Image2](images_lab9/Capture d'écran 2023-12-22 192518.png)
+![Image2](images_lab9/Image2.png)
 
 Then we configure the app, that means that we configure to open the application to outside traffic, and to Determine the ingress IP and ports. After that, once it's done
 Then we can launch the minikube tunnel : 
@@ -54,6 +53,7 @@ Then we configure the routing with the user identity. Results of routing with us
 
 But if we log with another user : 
 ![Image10](images_lab9/Image11.png)
+
 Results of routing with user identity : We now, logged as alex-soso, see reviews with no stars. It means that it works because only jason have stars. In fact, it’s because traffic is routed to reviews:v1 for all users except Jason.
 
 ## 3. Traffic Shifting : 
@@ -65,6 +65,7 @@ Now thanks to this first step of traffic shifting, No users at all (including ja
 
 And for the last step of this lab, which mean we decided that that the reviews:v3 microservice is stable, we can route 100% of the traffic to reviews:v3. We can see the results : 
 ![Image12](images_lab9/Image13.png)
+
 We can see that when we Refresh the /productpage several, we always see book reviews with red colored star ratings for each review.
 
 
