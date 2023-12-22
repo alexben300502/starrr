@@ -89,16 +89,6 @@ So the presence of the repository and the "Last pushed" means that we had a buil
 the image has been successfully uploaded to Docker Hub. <br>
 
 
-
-
-
-
-
-
-
-
-
-
 # 5  Make container orchestration using Docker Compose 
 
 To be able to containerize our development workflow, we have employed Docker compose it is a tool that is<br>
