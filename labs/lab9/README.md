@@ -17,7 +17,7 @@ Then once the cluster is launched, we can start to configure ISTIO
 ## 1. Start to configure Istio
 
 First we configure Istio using the documentation of the official website. We obtain results like this : 
-![[C:\Users\alexb\OneDrive\Bureau\starrr\labs\lab9\images_lab9\Image1.png]]
+![essai](C:\Users\alexb\OneDrive\Bureau\starrr\labs\lab9\images_lab9\Image1.png)
 
 Then we add the gateways : 
 
