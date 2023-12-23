@@ -12,7 +12,7 @@ kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.20/samp
 ```
 
 And we obtain thoses results : 
-![Image1](images_lab10\Imagelab10_1.png)
+![Image1](./images_lab10/Imagelab10_1.png)
 
 
 ## 3. Install and use Grafana
@@ -23,4 +23,4 @@ kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.20/samp
 ```
 
 And we enter it in our bash to apply it  : 
-![Image2](images_lab10\Imagelab10_2.png)
+![Image2](./images_lab10/Imagelab10_2.png)
