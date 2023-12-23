@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-devops
+  labels:
+    app: project-devops
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: project-devops
+  template:
+    metadata:
+      labels:
+        app: project-devops
+    spec:
+      containers:
+        - name: project-devops
+          image: alexben3005/userapi:latest  # Ensure this image is accessible and public on Docker Hub
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "512Mi"  # Reduced from 1Gi to 512Mi
+              cpu: "500m"      # Reduced from 1000m to 500m (half a CPU)
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - mountPath: /var/lib/redis/
+              name: task-pv-storage
+        - name: redis-deploy
+          image: redis
+          resources:
+            limits:
+              memory: "512Mi"  # Reduced from 1Gi to 512Mi
+              cpu: "500m"      # Reduced from 1000m to 500m (half a CPU)
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /var/lib/redis/
+              name: task-pv-storage
+
+      volumes:
+        - name: task-pv-storage
