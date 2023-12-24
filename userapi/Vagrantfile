@@ -1,0 +1,38 @@
+# -- mode: ruby --
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # Check to avoid vbguest problems for Vbox launching
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vm.provider :virtualbox do |vb|
+      config.vbguest.auto_update = false
+    end
+  end
+
+  config.vm.define "server" do |server|
+    # We use a centos/7 VM, from the redhat family
+    server.vm.box = "centos/7"
+    #We specify the IP address of the VM so it does not overlap with other VMs
+    server.vm.network :private_network, ip: "192.168.56.64"  
+    #We do not permit vagrant to try to inject a new key regarding the insecure key
+    config.ssh.insert_key = false
+    # Specify the VM specs when using the Virtualbox provisioner
+    server.vm.provider "virtualbox" do |vb|
+      vb.name =  "userapi_vm"
+      vb.memory = 2048
+      vb.cpus = 1
+    end
+    config.vm.provider "vmware_desktop" do |vmware|
+      vmware.vmx["memsize"] = "2048"
+      vmware.vmx["numvcpus"] = "1"
+    end
+  end
+  config.vm.provision "ansible_local" do |ansible| #Install Ansible
+    #Link to the playbook
+    ansible.playbook = "playbooks/run.yml"
+    #We only run the roles that have to install as a task
+    ansible.tags = "install"
+  end
+
+end
