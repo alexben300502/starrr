@@ -7,16 +7,16 @@
       - openssh-server
     state: latest
 
-#Here we install npm, and node, to use them inside the VM
 - name: Install npm
   yum:
     name: npm
+    state: present
 
-- name: Install node 
+- name: Install node
   yum:
     name: nodejs
+    state: present
 
-#Same thing for accessing redis inside the VM
 - name: Install redis
   yum:
     name: redis
@@ -36,12 +36,10 @@
 
 - name: Enable HTTP+HTTPS access
   firewalld:
-    # This is how we use a variable
     service: "{{ item }}"
     permanent: yes
     state: enabled
-  # The module will be run for each item
-  with_items:
+  loop:
     - http
     - https
 
@@ -50,9 +48,13 @@
     name: firewalld
     state: reloaded
 
-- name: If follow=yes, /path/to/file will be overwritten by contents of foo.conf
+- name: Copy userapi application code to VM
   copy:
-    src: /vagrant
-    dest: /opt  
-    follow: yes
-  become: true
+    src: "/opt/userapi/"
+    dest: "/opt/userapi/"
+    remote_src: yes
+
+- name: Install userapi npm dependencies
+  npm:
+    path: /opt/userapi/
+

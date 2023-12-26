@@ -1,0 +1,51 @@
+# -- mode: ruby --
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # Configuration to avoid vbguest auto-update issues
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = false
+  end
+
+  config.vm.define "server" do |server|
+    # Using a CentOS 7 VM
+    server.vm.box = "centos/7"
+    # We set an ip that does not overlap with other VMs that are using DHCP for example
+    server.vm.network :private_network, ip: "192.168.56.64"
+    # Disabling the insertion of Vagrant's default insecure key
+    server.ssh.insert_key = false
+    
+    # VM specifications for VirtualBox
+    server.vm.provider "virtualbox" do |vb|
+      vb.name = "userapi_vm"
+      vb.memory = 2048
+      vb.cpus = 1
+    end
+    
+    # VM specifications for VMware
+    server.vm.provider "vmware_desktop" do |vmware|
+      vmware.vmx["memsize"] = "2048"
+      vmware.vmx["numvcpus"] = "1"
+    end
+
+    # Sync the userapi folder to the VM
+    server.vm.synced_folder "userapi", "/opt/userapi", type: "rsync"
+
+    # Shell provisioner to ensure Python 3 and pip are installed
+    server.vm.provision "shell", inline: <<-SHELL
+      sudo yum -y install epel-release
+      sudo yum -y install python3
+      curl https://bootstrap.pypa.io/pip/3.6/get-pip.py | sudo python3
+    SHELL
+
+    # Provisioning with Ansible
+    server.vm.provision "ansible_local" do |ansible|
+      ansible.playbook = "playbooks/run.yml"
+      ansible.tags = "install"
+      ansible.verbose = "v"
+      ansible.compatibility_mode = "2.0" # Ensuring compatibility mode is set
+    end
+  end
+
+end
