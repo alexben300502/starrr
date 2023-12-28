@@ -14,7 +14,7 @@ Also, we have configured ther server and the application to be able to run on th
 After that, we covered the application with diferent test of diferent levels, in total we had 12 tests. <br>
 All the test are functioning and we had respectivelly : <br>
 
-[capture]
+![Image1](images/Image1.png)
 
 -> one test for Redis connection 
 This first test is checking the application's ability to perform the connection with Redis database but also
@@ -57,24 +57,53 @@ The deployment through Azure pipelines has been setup and rigorously tested. The
 Indeed, Azure pipeline present diferent advantages as Scalability, Integrated Environment, Flexibility and <br>
 control and en Enchanced security.<br>
 
-[capture 1] <br>
-We can here notice a cloud servies platform that shows : <br>
+![Image2](images/Image2.png) <br>
+We can see here notice a cloud servies platform that shows : <br>
 - Azure Cache for Redis: which represents a cache for redis that enhances the performance of the application.<br>
 - Ressource Group corresponds to a container that holds ressources for an Azure solution. <br>
 - App Service: a platform for building, deploying and scaling web applications. <br> 
 
-[capture 2]
+![Image3](images/Image3.png)
 
-Here we can notice that our AppService is currently running which means that our web application is <br>
-accessible. <br> 
+Here we can notice that our AppService is currently running which means that our web application is well deployed. <br>
 
-Here is the link to our node js file that made possible the continuous integration https://github.com/<br> alexben300502/starrr/blob/main/.github/workflows/node.js.yml <br>
+Here is the link to our node js file that made possible the continuous integration https://github.com/alexben300502/starrr/blob/main/.github/workflows/node.js.yml <br>
 
 And here's the link that made possible the delivery and the deployment on Azure pipeline. <br>
-https://github.com/al exben300502/starrr/blob/main/.github/workflows/main_starrr-devops-project.yml <br>
+https://github.com/alexben300502/starrr/blob/main/.github/workflows/main_starrr-devops-project.yml <br>
 
 And here we can notice that our web application is deployed on Azure and visible at [ADD LIEN]. 
 
+# 3. IAC 
+
+For this part, the goal is to configure a VM for testing and laucnhing our application in a VM centos7 form the redhat family, thanks to Vagrant. We will be doing that in a folder iac.
+
+Firstly, we create a vagrant file : https://github.com/alexben300502/starrr/blob/main/iac/Vagrantfile
+
+In it, as you can see thanks to the comments, we configure the VM, and how it will work. Thanks to this vagrantFile, we are able to enter the VM through Windows as you can see in the following picture : 
+
+![Image9](images/Image9.png)
+
+We had many troubles to access the Vm due to ssh key access, so we had to disable the automatic injection of key made by Vagrant.
+
+After that, we configured playbook with a run.yml file that will run the roles and tasks, and 2 main.yml files : one for installing all dependencies and another for health checks. As you can see in this folder : https://github.com/alexben300502/starrr/tree/main/iac/playbooks
+
+After all that is good, we can run many checks inside the VM to see that our application work : 
+
+![Image10](images/Image10.png)
+
+In this image we can see that all installation, enable and installing app are working. 
+
+Then we test our installation : 
+
+![Image11](images/Image11.png)
+![Image12](images/Image12.png)
+
+Here we can see that Node and redis are well installed inside the VM centos.
+
+And on this final picture we were able to perform the check of the installation and the healthchecks that means that the application is well installed and healthy inside the VM : 
+
+![Image13](images/Image12.png)
 
 # 4. Build Docker image of your application
 
@@ -82,7 +111,7 @@ For this part of the project after creating a dockerignore and a docker file we 
 We managed to push it on our dockerhub with login using respectively docker build -t devopsproject and <br>
 docker push alexben3005/project-image:latest
 
-[capture]
+![Image4](images/Image4.png)
 Here, we can see a docker Hub repository page.<br>
 The repository name alexben3005/userapi represents the unique identifier for the Docker image on Docker Hub.<br>
 So the presence of the repository and the "Last pushed" means that we had a built that occurred and that <br>
@@ -96,7 +125,7 @@ able to run multiple-container Docker application. Indeed, we are able in single
 application services, networks and volumes. <br>
 
 
-In this part of our project, we will be creating a  docker-compose.yml (mettre le lien) to start the <br>
+In this part of our project, we will be creating a docker-compose.yml (mettre le lien) to start the <br>
 application. <br> 
 
 Our docker-compose.yml defines two services: <br>
@@ -110,23 +139,59 @@ To start the docker-compose file we have just created we managed to do it with d
 Now we are going to use the software postman which is a tool for testing  and interacting with application<br>
 programming interfaces. <br> 
 
-[capture 1]
+![Image5](images/Image5.png)
 Also, as we can see on the image, the terminal indicates the successful creation of various components <br>
 that represents basic elements in a containerized application; such as network, volume, and containers.
 
-[capture 2]
-Here we can notice from the terminal that we have a cintainer creation, redis that is starting, also server inizalization with redis server that is listening on port 6379. Finally we can notice that the server finished its initialisation and will be from now ready to accept connections over TCP.
+![Image6](images/Image6.png)
+Here we can notice from the terminal that we have a container creation, redis that is starting, also server inizalization with redis server that is listening on port 6379. Finally we can notice that the server finished its initialisation and will be from now ready to accept connections over TCP.
 
-[capture 3]
+![Image7](images/Image7.png)
 Here we see that Node.js application is starting and we notice that the server is listening to port 3000<br>.
-
 
 After that we check the application on http://localhost:3000/ and we can see that the print of "Hello World!"
 <br> is successful. 
 
-[capture 4]
+![Image8](images/Image8.png)
 
 
-# Docker container orchestration with Kubernetes 
+# 6. Docker container orchestration with Kubernetes 
+
+Here the goal is to Install Kubernetes cluster using Minikube. After that, we will create kubernetes files such as deployments, PV, PVC and services.
+
+Firstly we create a kubernetes cluster thanks to the following command: 
+```
+minikube start 
+```
+
+Or 
+
+```
+minikube start --memory=8000 --cpus=4 --kubernetes-version=v1.27.0
+```
+If you have not sufficient space to allocate from your PC to minikube. (Here we limit the memory to 8000)
 
 
+
+All thoses files are accessible in this folder : 
+https://github.com/alexben300502/starrr/tree/main/k8s
+
+We apply those files in the cluster like in the following example : 
+![Image14](images/Image14.png)
+
+After that they are all applied, we can see that all the files are correctly applied because when we run the command : 
+```
+kubectl get pods
+```
+
+We have this result : 
+![Image15](images/Image15.png)
+
+We can see in this picture that we created 3 replicas and that 2/2 pods are running.
+
+# 7. Service Mesh with Istio 
+
+TO DO : It has been done for the labs as you can see in the following folder : 
+https://github.com/alexben300502/starrr/blob/main/labs/lab9/README.md
+
+It has to be adjusted for the project, to firstly inject Istio in our cluster from the previous task and to implement route requests between 2 different versions of userapi and traffic shifting between 2 different versions of userapi.

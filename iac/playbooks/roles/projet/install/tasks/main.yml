@@ -1,0 +1,60 @@
+---
+- name: Install required packages
+  yum:
+    name:
+      - curl
+      - policycoreutils-python
+      - openssh-server
+    state: latest
+
+- name: Install npm
+  yum:
+    name: npm
+    state: present
+
+- name: Install node
+  yum:
+    name: nodejs
+    state: present
+
+- name: Install redis
+  yum:
+    name: redis
+    state: latest
+
+- name: Enable and start redis
+  service:
+    name: redis
+    state: started
+    enabled: yes
+
+- name: Enable and start sshd
+  service:
+    name: sshd
+    state: started
+    enabled: yes
+
+- name: Enable HTTP+HTTPS access
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+  loop:
+    - http
+    - https
+
+- name: Reload firewalld
+  service:
+    name: firewalld
+    state: reloaded
+
+- name: Copy userapi application code to VM
+  copy:
+    src: "/opt/userapi/"
+    dest: "/opt/userapi/"
+    remote_src: yes
+
+- name: Install userapi npm dependencies
+  npm:
+    path: /opt/userapi/
+
