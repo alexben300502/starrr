@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: project-devops-service 
+spec:
+  host: project-devops-service
+  subsets:
+  - name: v1 #We create two subsets :  v1 and v2 to permit allocate them different height and navigate between them
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
