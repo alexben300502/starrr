@@ -3,9 +3,9 @@ version: '3'
 services:
   web:
     depends_on:
-      - redis
+      - redis  #we specify that the web serviceis here depending on the redis service
     build:
-      context: /Users/hello/Desktop/ÉCOLE/DEVOPS/starrr/userapi
+      context: /Users/hello/Desktop/ÉCOLE/DEVOPS/starrr/userapi #location of the docker build context 
       dockerfile: Dockerfile
     container_name: projectdevopsssss
   
@@ -13,13 +13,13 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules 
     ports:
-      - "3000:3000"
+      - "3000:3000" # mapping of the port 3000 of the container to the port 3000 of the host 
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
 
   redis:
-    image: redis
+    image: redis #using official redis image from Docker Hub
     volumes:
       - db-data:/data
 
