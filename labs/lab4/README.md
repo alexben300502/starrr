@@ -2,11 +2,11 @@
 # lab 4: Continuous integration and continuous delivery
 
 # Short Description 
-This lab focuses on setting up Continuous Integration and Continuous Delivery (CI/CD) for a software project using GitHub Actions and Heroku. It represents the fundamentals of automating. 
+In this lab, we will configure CI and CD. 
 
 # List of Functionalities
-1. Continuous Integration with GitHub Actions:Automate the build and test process for a Node.js application.
-2. Continuous Delivery with Heroku: Automate the deployment of the application to Heroku, a cloud platform service.
+1. Continuous Integration with GitHub Actions:Automate the build and test process for our node.js application.
+2. Continuous Delivery with Azure: Continuous deployment using Azure CD pipeline
 
 # Installation Instructions
 1. Ensure you have a GitHub account and the GitHub CLI installed.
@@ -15,16 +15,16 @@ This lab focuses on setting up Continuous Integration and Continuous Delivery (C
 
 # Usage Instructions
 ## Part 1: Continuous Integration with GitHub Actions
-1. Familiarize yourself with GitHub Actions.
-2. Create a CI workflow for Node.js in your project.
-3. Improve the workflow to connect to Redis.
-4. Practice standard software development processes like creating pull requests and merging.
+We can see in the folder .github/workflows that there CI and now every commit we make is visible and validated in the "actions" part. here is the file that makes it possible :https://github.com/alexben300502/starrr/blob/main/.github/workflows/node.js.yml
 
 ## Part 2: Continuous Delivery with Heroku
-1. Create a new app in Heroku.
-2. Sync the app with your GitHub repository.
-3. Set up Redis service on Heroku (optional).
-4. Configure the GitHub Actions workflow for deployment to Heroku.
+We do it on Azure because Heroku if not free. We configure a file https://github.com/alexben300502/starrr/blob/main/.github/workflows/node.js.yml to permits deploy our node application on azure. 
+
+We also configure redis in it by configuring a redis cache. 
+Finally, we can see that it is working by clicking on this link : https://starrr-devops-project.azurewebsites.net/
+
+
+We can see that the application is well deployed.
 
 # Author Information
 - BENSARSA Alexandre
