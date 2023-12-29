@@ -142,9 +142,6 @@ To start the docker-compose file we have just created we managed to do it with d
 <br>
  to run it into the container we have just created. <br>
 
-Now we are going to use the software postman which is a tool for testing  and interacting with application<br>
-programming interfaces. <br> 
-
 ![Image5](images/Image5.png)
 Also, as we can see on the image, the terminal indicates the successful creation of various components <br>
 that represents basic elements in a containerized application; such as network, volume, and containers.
@@ -163,37 +160,88 @@ After that we check the application on http://localhost:3000/ and we can see tha
 
 # 6. Docker container orchestration with Kubernetes 
 
-Here the goal is to Install Kubernetes cluster using Minikube. After that, we will create kubernetes files such as deployments, PV, PVC and services.
+Here the goal is to Install Kubernetes cluster using Minikube. After that, we will create kubernetes <br>
+files such as deployments, persistent volumes, persistent volume claim and services. <br>
 
-Firstly we create a kubernetes cluster thanks to the following command: 
-```
-minikube start 
-```
+Step 1 we are going to start a Minikube cluster. Minikube represents a tool allowing to run <br>
+Kubernetes locally. <br>
 
-Or 
+[capture 1]
 
-```
-minikube start --memory=8000 --cpus=4 --kubernetes-version=v1.27.0
-```
-If you have not sufficient space to allocate from your PC to minikube. (Here we limit the memory to 8000)
+We can here notice the output where Minikube has been successfully started with the Docker Driver <br>.
+Many steps are here considered as Docker being restarted, image being extracted.. <br>
+At the end, we can see that kubectl is sow configured to use Minikube as the default cluster.<br>
+
+Step 2 we are here going to apply our files to the cluster.
+We execute the command "kubectl apply -f service.yaml" to apply a configuration file named service.yaml <br>
+to Kubernetes cluster. As a result we can notice the creation in the cluster of a service named <br>
+project-devops-service. <br>
+
+[capture 2]
+
+In the same way, we are here executing the command 'kubetcl apply -f persistentvolume.yaml' to apply a <br>
+ configured file named persistentvolume.yaml to Kubernetes Cluster. <br> 
+ As a result we notice the cretaion of a persistent volume named "task-pv-volume" in Kubernetes cluster.<br>
+ Persistent volumes are used to manage storage in the cluster preserving data even when pods are deleted.
+ <br>
+
+[capture3]
+
+Also, by applying "kubectl apply -f storageclass.yaml" the result is the creation of a storage class
+<br>
+ressource named "manual" in the Kubernetes cluster. We use Storage class to define diferent classes of<br>
+storage that can be dynamically provisionned to pods as persistent volumes. <br>
+
+[capture4]
+
+In the same logic we apply commands 'kubectl apply -f deployment.yaml' to create deployment and <br>
+'kubectl apply -f persistentvolumeclaim.yaml' to create persistentvolumeclaim. <br>
+
+Step 3: We are checking here that evrything is working correctly. <br>
+
+By applying the command kubectl get persistentvolume we can see a list of two persistent volumes.<br>
+First one with a capacity of 10Gi and the second one name 'task-pv-volume' with a capacity of 1GI and has 
+<br>
+been up for 61 minutes.
+
+[capture5]
+
+<br>
+Then, by applying the command 'kubectl get pods' we can notice that we have here three pods with <br>
+three diferent suffix names. We can see that each pod is ready with the 2/2 in the READY column that <br>
+meaning that each container of the pod is running. <br>
+
+After that by applying the command 'kubectl get services' we have a list of the various services<br>
+in the cluster. For example here we can see project-devops-service that exposes the NodePort at the <br>
+IP address "10.97.8.157" on port "30607/TCP and it is running since 72 minutes.
+
+[capture6]
+
+We notice here the default Kubernetes service named kubernetes, the cluster-IP is 10.96.0.1 and 
+<br> 
+represents an internal IP address reachable in the cluster and we also see that te port 444 is <br>
+used for HTTPS traffic.
+
+[capsture7]
+
+Finnaly we apply "kubectl get deployment" to be able to list deployments in the Kubernetes cluster.<br>
+The output shows us that the name of the deployment is `project-devops`. <br>
+The number of ready pods for the deployment is 3/3, all of them are ready. <br>
+
+[capture8]
+
+Everything seems to be working so we use minikube for the deployment :  <br>
+
+[capture9]
+
+We can notice the service that we saw when tiping kubectl get services : project-devops-service<br>
+In the terminal, there are two sections : <br>
+
+The first section lists a service in Kubernetes:<br>
+The second section indicates that a tunnel has been started for the project-devops-service, which is <br>  a way to expose the service on a local machine for testing or development.giut 
 
 
 
-All thoses files are accessible in this folder : 
-https://github.com/alexben300502/starrr/tree/main/k8s
-
-We apply those files in the cluster like in the following example : 
-![Image14](images/Image14.png)
-
-After that they are all applied, we can see that all the files are correctly applied because when we run the command : 
-```
-kubectl get pods
-```
-
-We have this result : 
-![Image15](images/Image15.png)
-
-We can see in this picture that we created 3 replicas and that 2/2 pods are running.
 
 # 7. Service Mesh with Istio 
 
@@ -201,3 +249,5 @@ TO DO : It has been done for the labs as you can see in the following folder :
 https://github.com/alexben300502/starrr/blob/main/labs/lab9/README.md
 
 It has to be adjusted for the project, to firstly inject Istio in our cluster from the previous task and to implement route requests between 2 different versions of userapi and traffic shifting between 2 different versions of userapi.
+
+
