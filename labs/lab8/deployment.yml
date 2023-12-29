@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-devops
+  labels:
+    app: project-devops
+spec:
+  replicas: 3 # represents the number of desired pods
+  selector:
+    matchLabels:
+      app: project-devops # represents the label applied to pods 
+  template:
+    metadata:
+      labels:
+        app: project-devops
+    spec:
+      containers:
+        - name: project-devops
+          image: alexben3005/userapi:latest  # Docker image for the container
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "512Mi"  
+              cpu: "500m"      
+          ports:
+            - containerPort: 3000 # represents which port the container will be listening on
+          volumeMounts:
+            - mountPath: /var/lib/redis/
+              name: task-pv-storage
+        - name: redis-deploy
+          image: redis
+          resources:
+            limits:
+              memory: "512Mi"  
+              cpu: "500m"      
+            
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /var/lib/redis/
+              name: task-pv-storage
+
+      volumes:
+        - name: task-pv-storage
