@@ -139,7 +139,8 @@ docker build -t devopsproject
 ```
 
 We managed to push it on our dockerhub with login using : 
-``````
+
+```
 docker push alexben3005/project-image:latest
 ```
 
