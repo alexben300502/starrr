@@ -300,7 +300,7 @@ To be able to list deployments in the Kubernetes cluster. The output shows us th
 
 Everything seems to be working so we use minikube for the deployment :  <br>
 ![Image47](images/Image47.png)
-![Image46](images/Image48.png)
+![Image46](images/Image46.png)
 
 
 We can notice the service that we saw when typing kubectl get services : project-devops-service<br>
