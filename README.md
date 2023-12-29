@@ -142,15 +142,16 @@ To start the docker-compose file we have just created we managed to do it with d
 <br>
  to run it into the container we have just created. <br>
 
-![Image5](images/Image5.png)
+
 Also, as we can see on the image, the terminal indicates the successful creation of various components <br>
 that represents basic elements in a containerized application; such as network, volume, and containers.
-
-![Image6](images/Image6.png)
+![Image5](images/Image5.png)
+<br> 
 Here we can notice from the terminal that we have a container creation, redis that is starting, also server inizalization with redis server that is listening on port 6379. Finally we can notice that the server finished its initialisation and will be from now ready to accept connections over TCP.
 
+Here we see that Node.js application is starting and we notice that the server is listening to port 3000. <br> 
 ![Image7](images/Image7.png)
-Here we see that Node.js application is starting and we notice that the server is listening to port 3000<br>.
+
 
 After that we check the application on http://localhost:3000/ and we can see that the print of "Hello World!"
 <br> is successful. 
@@ -166,7 +167,7 @@ files such as deployments, persistent volumes, persistent volume claim and servi
 Step 1 we are going to start a Minikube cluster. Minikube represents a tool allowing to run <br>
 Kubernetes locally. <br>
 
-[capture 1]
+![Image16](images/Image16.png)
 
 We can here notice the output where Minikube has been successfully started with the Docker Driver <br>.
 Many steps are here considered as Docker being restarted, image being extracted.. <br>
@@ -177,7 +178,7 @@ We execute the command "kubectl apply -f service.yaml" to apply a configuration 
 to Kubernetes cluster. As a result we can notice the creation in the cluster of a service named <br>
 project-devops-service. <br>
 
-[capture 2]
+![Image17](images/Image17.png)
 
 In the same way, we are here executing the command 'kubetcl apply -f persistentvolume.yaml' to apply a <br>
  configured file named persistentvolume.yaml to Kubernetes Cluster. <br> 
@@ -185,14 +186,14 @@ In the same way, we are here executing the command 'kubetcl apply -f persistentv
  Persistent volumes are used to manage storage in the cluster preserving data even when pods are deleted.
  <br>
 
-[capture3]
+![Image18](images/Image18.png)
 
 Also, by applying "kubectl apply -f storageclass.yaml" the result is the creation of a storage class
 <br>
 ressource named "manual" in the Kubernetes cluster. We use Storage class to define diferent classes of<br>
 storage that can be dynamically provisionned to pods as persistent volumes. <br>
 
-[capture4]
+![Image19](images/Image19.png)
 
 In the same logic we apply commands 'kubectl apply -f deployment.yaml' to create deployment and <br>
 'kubectl apply -f persistentvolumeclaim.yaml' to create persistentvolumeclaim. <br>
@@ -204,35 +205,38 @@ First one with a capacity of 10Gi and the second one name 'task-pv-volume' with 
 <br>
 been up for 61 minutes.
 
-[capture5]
+![Image21](images/Image21.png)
 
 <br>
 Then, by applying the command 'kubectl get pods' we can notice that we have here three pods with <br>
 three diferent suffix names. We can see that each pod is ready with the 2/2 in the READY column that <br>
 meaning that each container of the pod is running. <br>
 
+![Image22](images/Image22.png)
+
+
 After that by applying the command 'kubectl get services' we have a list of the various services<br>
 in the cluster. For example here we can see project-devops-service that exposes the NodePort at the <br>
 IP address "10.97.8.157" on port "30607/TCP and it is running since 72 minutes.
 
-[capture6]
+![Image24](images/Image24.png)
 
 We notice here the default Kubernetes service named kubernetes, the cluster-IP is 10.96.0.1 and 
 <br> 
 represents an internal IP address reachable in the cluster and we also see that te port 444 is <br>
 used for HTTPS traffic.
 
-[capsture7]
+![Image23](images/Image23.png)
 
-Finnaly we apply "kubectl get deployment" to be able to list deployments in the Kubernetes cluster.<br>
+Finnaly, we apply "kubectl get deployment" to be able to list deployments in the Kubernetes cluster.<br>
 The output shows us that the name of the deployment is `project-devops`. <br>
 The number of ready pods for the deployment is 3/3, all of them are ready. <br>
 
-[capture8]
+![Image25](images/Image25.png)
 
 Everything seems to be working so we use minikube for the deployment :  <br>
+![Image26](images/Image26.png)
 
-[capture9]
 
 We can notice the service that we saw when tiping kubectl get services : project-devops-service<br>
 In the terminal, there are two sections : <br>
@@ -271,17 +275,17 @@ Then we apply manifest generate : <br>
 And finally we check if it worked :  <br> 
 "kubectl get pods -n istio-system "<br> 
 
-[capture1]
+![Image27](images/Image27.png)
 
 And if we check, we see that now there are 3 pods including istio running : <br>
 
-[capture2]
+![Image28](images/Image28.png)
 
 Here we can see that we are at 3 pods so istio is well injected. <br>
 
 We can check it by running kubectl describe pod <our_pod_name>.  <br>
 
-[capture3]
+![Image29](images/Image29.png)
 
 After that, we have to apply our 3 documents that you can find in this folder : lien
 <br>
@@ -295,7 +299,7 @@ Finally, we Create a VirtualService.yml file to route and shift traffic between 
 After doing it, we can run the following command to apply those files :  <br>
 "kubectl apply -f istio" <br>
 
-[capture4]
+![Image30](images/Image30.png)
 
 And then to check if it worked correctly and to see traffic flow and to see traffic shifting, we use kali <br> 
 as in the lab9. 
@@ -303,7 +307,9 @@ as in the lab9.
 
 # 8 Implementing Monitoring to your containerized application 
 Step n°1: Using services and deployments from our Istio installation folder <br>
-[capture1]
+
+![Image31](images/Image31.png)
+
 Step n°2: Verification that deployments, services and pods are running <br>
 We first verifiy that deployments are running correctly by executing the following command : "kubectl <br>
 get deployments -n istio-system" . <br>
@@ -312,14 +318,16 @@ The output after the execution of this command is showing us 4 deployments: <br>
 -Jaeger<br>
 -Kiali <br>
 -Promotheus <br>
-[capture2]
+
+![Image32](images/Image32.png)
+
 We can see that for each deployment the pods are available and ready.
 <br>
 Then we execute the command "kubectl get services -n istio-system". <br>
 The output shows us the various services within the Istio system namespace. <br>
 All of those services are part of stack for Kubernetes Cluster and enables monitoring .
 
-[capture3]
+![Image33](images/Image33.png)
 
 Finnaly, we finish this step by running the command "kubectl get pods -n istio-system".<br>
 The output of the terminal lists pods in the Istio-system namespace of a Kubernetes cluster. <br>
@@ -327,40 +335,49 @@ We notice that all pods are effectively running Aand have been up for the same a
 <br> 
 they were  started simultaneously as part of the Istio service mesh setup. 
 
-[capture4]
+![Image34](images/Image34.png)
 
 Step n°3:  To be able to  forward a local port to a port on a Grafana pod within the Istio-system  <br>
 we are going to use the command "kubectl -n istio-system port-forward <br>
 grafana-b8bbdc84d-4s715" that includes the pod we have seen in past images. <br>
 The output of the command shows us the following message "Handling connection for 3000"  suggest that <br> there have been several connections made to the local port, which are being forwarded to the Grafana <br> service.
-[capture5]
+
+![Image35](images/Image35.png)
+
 <br>
 
 Step n°4: We are finnaly able to access Graphana UI with localost:3000.
-[capture6]
+
+![Image36](images/Image36.png)
 
 Step n°5: Here we are going to deploy prometheus pod to localhost. <br>
 To be able to do this we are going to use the following command "kubectl -n istio-system port-forward <br>
 prometheus-db8b4588f-f972p 9090:9090" <br>
 The output indicates that the local machine has handled connections on port 9090 at least twice.
-[capture7]
+
+![Image37](images/Image37.png)
 
 Step n°6: Accessing prometheus UI with localhost:9090 <br>
-[capture8]
 
-Step n°7: Checking prometheus status 
-[capture9]
+![Image40](images/Image40.png)
+
+Step n°7: Checking prometheus status
+
+![Image41](images/Image41.png)
 
 Step n°8: Link in Graphana to Prometheus server
 For doing the link between them we go on Graphana in settings and data Source and we put <br>
 into the HTTP part the url of prometheus local host which is : http://localhost:9090 <br>
- [capture10]
+
+![Image42](images/Image42.png)
 
 Step n°8: Creating Alerts 
 
 We started by choosing a dashboard and importing it on graphana by its ID. <br>
 Our dashboard represents average rate of received bytes over time <br>
-[capture11] 
+
+![Image43](images/Image43.png)
+
  <br>
 The alert type will notify if the average received bytes over a 5-minute period exceeds a certain 
 <br>
@@ -370,6 +387,6 @@ Then we managed to define all the parameters for the alert.<br>
  To the right, there's an alert configuration section where a threshold is set. The condition is <br>
  configured to trigger an alert if the value is above 800 bytes.<br>
 
- [capture12]
+![Image44](images/Image44.png)
+
  Finnaly we set the notifications parameters by putting graphana default email.  <br> 
- [capture13] 
