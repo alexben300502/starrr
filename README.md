@@ -299,3 +299,77 @@ After doing it, we can run the following command to apply those files :  <br>
 
 And then to check if it worked correctly and to see traffic flow and to see traffic shifting, we use kali <br> 
 as in the lab9. 
+
+
+# 8 Implementing Monitoring to your containerized application 
+Step n°1: Using services and deployments from our Istio installation folder <br>
+[capture1]
+Step n°2: Verification that deployments, services and pods are running <br>
+We first verifiy that deployments are running correctly by executing the following command : "kubectl <br>
+get deployments -n istio-system" . <br>
+The output after the execution of this command is showing us 4 deployments: <br>
+-Graphana <br>
+-Jaeger<br>
+-Kiali <br>
+-Promotheus <br>
+[capture2]
+We can see that for each deployment the pods are available and ready.
+<br>
+Then we execute the command "kubectl get services -n istio-system". <br>
+The output shows us the various services within the Istio system namespace. <br>
+All of those services are part of stack for Kubernetes Cluster and enables monitoring .
+
+[capture3]
+
+Finnaly, we finish this step by running the command "kubectl get pods -n istio-system".<br>
+The output of the terminal lists pods in the Istio-system namespace of a Kubernetes cluster. <br>
+We notice that all pods are effectively running Aand have been up for the same amount of time, indicating 
+<br> 
+they were  started simultaneously as part of the Istio service mesh setup. 
+
+[capture4]
+
+Step n°3:  To be able to  forward a local port to a port on a Grafana pod within the Istio-system  <br>
+we are going to use the command "kubectl -n istio-system port-forward <br>
+grafana-b8bbdc84d-4s715" that includes the pod we have seen in past images. <br>
+The output of the command shows us the following message "Handling connection for 3000"  suggest that <br> there have been several connections made to the local port, which are being forwarded to the Grafana <br> service.
+[capture5]
+<br>
+
+Step n°4: We are finnaly able to access Graphana UI with localost:3000.
+[capture6]
+
+Step n°5: Here we are going to deploy prometheus pod to localhost. <br>
+To be able to do this we are going to use the following command "kubectl -n istio-system port-forward <br>
+prometheus-db8b4588f-f972p 9090:9090" <br>
+The output indicates that the local machine has handled connections on port 9090 at least twice.
+[capture7]
+
+Step n°6: Accessing prometheus UI with localhost:9090 <br>
+[capture8]
+
+Step n°7: Checking prometheus status 
+[capture9]
+
+Step n°8: Link in Graphana to Prometheus server
+For doing the link between them we go on Graphana in settings and data Source and we put <br>
+into the HTTP part the url of prometheus local host which is : http://localhost:9090 <br>
+ [capture10]
+
+Step n°8: Creating Alerts 
+
+We started by choosing a dashboard and importing it on graphana by its ID. <br>
+Our dashboard represents average rate of received bytes over time <br>
+[capture11] 
+ <br>
+The alert type will notify if the average received bytes over a 5-minute period exceeds a certain 
+<br>
+threshold, which might indicate unusual network activity.<br>
+Then we managed to define all the parameters for the alert.<br>
+ The specific query  is avg(rate(container_network_receive_bytes_total[5m])), which calculates the <br> average rate of received network bytes for containers over the last 5 minutes. <br>
+ To the right, there's an alert configuration section where a threshold is set. The condition is <br>
+ configured to trigger an alert if the value is above 800 bytes.<br>
+
+ [capture12]
+ Finnaly we set the notifications parameters by putting graphana default email.  <br> 
+ [capture13] 
