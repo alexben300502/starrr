@@ -241,13 +241,61 @@ The first section lists a service in Kubernetes:<br>
 The second section indicates that a tunnel has been started for the project-devops-service, which is <br>  a way to expose the service on a local machine for testing or development.giut 
 
 
-
-
 # 7. Service Mesh with Istio 
 
-TO DO : It has been done for the labs as you can see in the following folder : 
+TO DO : It has been done for the labs as you can see in the following folder : <br> 
 https://github.com/alexben300502/starrr/blob/main/labs/lab9/README.md
 
-It has to be adjusted for the project, to firstly inject Istio in our cluster from the previous task and to implement route requests between 2 different versions of userapi and traffic shifting between 2 different versions of userapi.
+It has to be adjusted for the project, to firstly inject Istio in our cluster from the previous task and <br> to implement route requests between 2 different versions of userapi and traffic shifting between 2 different versions of userapi.<br> 
 
+To make service mesh, we have to use the cluster we used for the last part k8s. <br> 
+To be able to launch minikube, we had to disable the VM driver because the BIOS were not working in <br> Windows. <br>
 
+this is the command the command we used to do it "kubectl config unset vm-driver" <br> 
+
+After that, we allocated 7000 instead of 16384 in the minikube cluster. Thanks to the following command : 
+<br> 
+"minikube start --memory=7000 --cpus=4 --kubernetes-version=v1.27.0"
+<br> 
+
+Then once the cluster is launched, we can start to configure ISTIO. <br> 
+Once it’s done by running minikube, we configure istio with the commands :  <br> 
+"istioctl install --set profile=default -y" <br> 
+
+Then we enable the namespace : <br> 
+"kubectl label namespace default istio-injection=enabled" <br> 
+
+Then we apply manifest generate : <br> 
+"istioctl manifest generate | kubectl apply -f -" <br> 
+
+And finally we check if it worked :  <br> 
+"kubectl get pods -n istio-system "<br> 
+
+[capture1]
+
+And if we check, we see that now there are 3 pods including istio running : <br>
+
+[capture2]
+
+Here we can see that we are at 3 pods so istio is well injected. <br>
+
+We can check it by running kubectl describe pod <our_pod_name>.  <br>
+
+[capture3]
+
+After that, we have to apply our 3 documents that you can find in this folder : lien
+<br>
+Here we firstly have the gateway.yml file, that permits to expose the service. 
+<br>
+Then we create a destinationrule.yml that will define subsets for routing for the two versions, v1 and <br> 
+v2, of our userapi. 
+<br>
+Finally, we Create a VirtualService.yml file to route and shift traffic between the two versions. The <br> goal is to routes incoming requests to the project-devops-service, with a heavenly weight of each v1 <br>and v2 subsets. 
+
+After doing it, we can run the following command to apply those files :  <br>
+"kubectl apply -f istio" <br>
+
+[capture4]
+
+And then to check if it worked correctly and to see traffic flow and to see traffic shifting, we use kali <br> 
+as in the lab9. 
