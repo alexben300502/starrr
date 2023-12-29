@@ -1,6 +1,8 @@
 # DEVOPS PROJECT
 
+```
 This is our Devops project that we managed to do after learning diferent tools during the semester. 
+```
 
 # Authors 
  BENSARSA Alexandre <br>
@@ -74,20 +76,38 @@ Here we can notice that our AppService is currently running which means that our
 
 Here is the link to our node js file that made possible the continuous integration https://github.com/alexben300502/starrr/blob/main/.github/workflows/node.js.yml <br>
 
-And here's the link that made possible the delivery and the deployment on Azure pipeline. <br>
+And here's the link of the file that made possible the continuous deployment on Azure pipeline. <br>
 https://github.com/alexben300502/starrr/blob/main/.github/workflows/main_starrr-devops-project.yml <br>
 
-And here we can notice that our web application is deployed on Azure and visible at [ADD LIEN]. 
+And here we can notice that our web application is deployed on Azure and visible at https://starrr-devops-project.azurewebsites.net/. <br> And we can see that it is working : 
+
+![Image45](images/Image45.png)
+
 
 # 3. Configure and provision a virtual environment and run application using the IaC approach
 
 For this part, the goal is to configure a VM for testing and laucnhing our application in a VM centos form the redhat family, thanks to Vagrant. We will be doing that in a folder iac.
 
+
 Firstly, we create a vagrant file : https://github.com/alexben300502/starrr/blob/main/iac/Vagrantfile
+
 
 In it, as you can see thanks to the comments, we configure the VM, and how it will work. Thanks to this vagrantFile, we are able to enter the VM through Windows as you can see in the following picture : 
 
+```
+vagrant up 
+#or 
+vagrant up --provision #if we made changes we run this command
+```
+
+Once we are inside the VM, we run the following command : 
+
+```
+vagrant ssh
+```
+
 ![Image9](images/Image9.png)
+
 
 We had many troubles to access the Vm due to ssh key access, so we had to disable the automatic injection of key made by Vagrant.
 
@@ -112,15 +132,23 @@ And on this final picture we were able to perform the check of the installation 
 
 # 4. Build Docker image of your application
 
-For this part of the project, after creating a dockerignore and a docker file, we build the docker image. <br>
-We managed to push it on our dockerhub with login using respectively docker build -t devopsproject and <br>
+For this part of the project, after creating a dockerignore and a docker file, we build the docker image with the following command : <br>
+
+```
+docker build -t devopsproject
+```
+
+We managed to push it on our dockerhub with login using : 
+``````
 docker push alexben3005/project-image:latest
+```
 
 ![Image4](images/Image4.png)
+
 <br>
 Here, we can see a docker Hub repository page.<br>
-The repository name userapi represents the unique identifier for the Docker image on Docker Hub.<br>
-Also, the "Public View" button, suggesting that this page can be viewed by the public
+
+The repository named userapi represents the unique identifier for the Docker image on Docker Hub.<br>
 And the presence of the repository and the "Last pushed" means that we had a built that occurred and that <br>
 the image has been successfully uploaded to Docker Hub. <br>
 There are many advantages of building images on Docker hub: Centralized repository,version control <br>
@@ -128,6 +156,7 @@ Automated builds, Scalability, Public and Private Access and finally for Kuberne
 Indeed,  Kubernetes will be able to use Docker images to create containers. The images will thus <br>
 represent the application environment. This ensures that the application run the same way in all kind <br>
 of possible environments.
+
 
 # 5.  Make container orchestration using Docker Compose 
 
@@ -139,11 +168,15 @@ application services, networks and volumes. <br>
 In this part of our project, we will be creating a docker-compose.yml  to start the <br>
 application https://github.com/alexben300502/starrr/blob/main/userapi/docker-compose.yml . <br> 
 
+
 Our docker-compose.yml defines two services: <br>
 - web application service: it is setting up the correct envrionement for the web server to run. <br>
-- redis service : it utilizes the Redis image from Docker hub. <br>
+- redis service : it pulls the Redis image. <br>
 
-To start the docker-compose file we have just created, we managed to do it with docker-compose up. <br>
+To start the docker-compose file we have just created, we managed to do it with the following command :
+```
+docker-compose up
+```
 
 
 Also, as we can see on the image, the terminal indicates the successful creation of various components <br>
@@ -153,9 +186,11 @@ that represents basic elements in a containerized application; such as network, 
  
 ![Image5](images/Image5.png)
 <br> 
-Here we can notice from the terminal that we have a container creation, redis that is starting, also server inizalization with redis server that is listening on port 6379. Finally we can notice that the server finished its initialisation and will be from now ready to accept connections over TCP.
 
-Here we see that Node.js application is starting and we notice that the server is listening to port 3000. <br> 
+Here we can notice from the terminal that we have a container creation, redis that is starting, also server inizalization with redis server that is listening on port 6379. Finally we can notice that the server finished its initialisation and will be from now ready to accept connections over TCP protocols.
+
+Here we see that Node.js application is starting and we notice that the server is listening to port 3000, on the localhost. <br> 
+
 ![Image7](images/Image7.png)
 
 
@@ -170,11 +205,12 @@ After that we check the application on http://localhost:3000/ and we can see tha
 Here, the goal is to Install Kubernetes cluster using Minikube. After that, we will create kubernetes <br>
 files such as deployments, persistent volumes, persistent volume claim and services. <br>
 
-Step 1: we are going to start a Minikube cluster. Minikube represents a tool allowing to run <br>
-Kubernetes locally. <br>
+Step 1: we are going to start a Minikube cluster. Minikube represents a tool allowing to run Kubernetes locally. To launch minikube, after installing it, we launch the following command : 
+```
+minikube start
+```
 
-
-We can here notice the output where Minikube has been successfully started with the Docker Driver. <br>
+We can here notice the output where Minikube has been successfully started with the Docker Driver. 
 <br>
 
 ![Image16](images/Image16.png)
@@ -183,38 +219,46 @@ We can here notice the output where Minikube has been successfully started with 
 Many steps are here considered as Docker being restarted, image being extracted.. <br>
 At the end, we can see that kubectl is now configured to use Minikube as the default cluster.<br>
 
+**Note:** To be able to launch minikube, we had to disable the VM driver because the BIOS were not working in Windows. 
+```
+kubectl config unset vm-driver
+```
+
+After that, we allocated 7000 instead of 16384 in the minikube cluster. Thanks to the following command : 
+```
+minikube start --memory=7000 --cpus=4 --kubernetes-version=v1.27.0
+```
+
+We put 7000 for an optimize use of kubernetes.
+
 
 Step 2: we are here going to apply our files to the cluster.
-We execute the command "kubectl apply -f service.yaml" to apply a configuration file named service.yaml <br>
-to Kubernetes cluster. As a result we can notice the creation in the cluster of a service named <br>
-project-devops-service. <br>
+We execute the command :
+```
+kubectl apply -f service.yaml
+```
+To apply a configuration file named service.yaml to the Kubernetes cluster to enable network access to a set of Pods. As a result we can notice the creation in the cluster of a service named project-devops-service. <br>
 
 ![Image17](images/Image17.png)
 
-In the same way, we are here executing the command 'kubetcl apply -f persistentvolume.yaml' to apply a 
- configured file named persistentvolume.yaml to Kubernetes Cluster. <br> 
- As a result we notice the creation of a persistent volume named "task-pv-volume" in Kubernetes cluster.<br>
- Persistent volumes are used to manage storage in the cluster preserving data even when pods are deleted.
- <br>
+In the same way, we are here executing the command :
+```
+kubetcl apply -f persistentvolume.yaml
+```
+As a result we notice the creation of a persistent volume named "task-pv-volume" in the cluster to manage storage in the cluster preserving data even when pods are deleted.<br>
 
 ![Image18](images/Image18.png)
 
-Also, by applying "kubectl apply -f storageclass.yaml" the result is the creation of a storage class
-<br>
-ressource named "manual" in the Kubernetes cluster. We use Storage class to define diferent classes of<br>
-storage that can be dynamically provisionned to pods as persistent volumes. <br>
+Also, by applying "kubectl apply -f storageclass.yaml" the result is the creation of a storage class ressource named "manual" in the Kubernetes cluster. We use Storage class to define diferent classes storage that can be dynamically provisionned to pods as persistent volumes. 
 
 ![Image19](images/Image19.png)
 
-In the same logic, we apply commands 'kubectl apply -f deployment.yaml' to create deployment and <br>
-'kubectl apply -f persistentvolumeclaim.yaml' to create persistentvolumeclaim. <br>
+In the same logic, we apply commands kubectl apply -f deployment.yaml to create deployment. Then kubectl apply -f persistentvolumeclaim.yaml to create persistentvolumeclaim to request storage resources from the cluster.
 
 Step 3: We are checking here that everything is working correctly. <br>
 
 By applying the command kubectl get persistentvolume we can see a list of two persistent volumes.<br>
-First one with a capacity of 10Gi and the second one name 'task-pv-volume' with a capacity of 1GI and has 
-<br>
-been up for 61 minutes.
+First one with a capacity of 10Gi and the second one name 'task-pv-volume' with a capacity of 1GI and has been up for 61 minutes.
 
 ![Image21](images/Image21.png)
 
@@ -232,15 +276,11 @@ IP address "10.97.8.157" on port "30607/TCP and it is running since 72 minutes.
 
 ![Image24](images/Image24.png)
 
-We notice here the default Kubernetes service named kubernetes, the cluster-IP is 10.96.0.1 and 
-<br> 
-represents an internal IP address reachable in the cluster and we also see that te port 444 is <br>
-used for HTTPS traffic.
+We notice here the default Kubernetes service named kubernetes, the cluster-IP is 10.96.0.1 and represents an internal IP address reachable in the cluster and we also see that te port 444 is used for HTTPS traffic.
 
 ![Image23](images/Image23.png)
 
-Finnaly, we apply "kubectl get deployment" to be able to list deployments in the Kubernetes cluster.<br>
-The output shows us that the name of the deployment is `project-devops`. <br>
+Finnaly, we apply "kubectl get deployment" to be able to list deployments in the Kubernetes cluster. The output shows us that the name of the deployment is `project-devops`. 
 The number of ready pods for the deployment is 3/3, all of them are ready. <br>
 
 ![Image25](images/Image25.png)
@@ -299,8 +339,7 @@ After that, we have to apply our 3 documents that you can find in this folder : 
 <br>
 Here we firstly have the gateway.yml file https://github.com/alexben300502/starrr/blob/main/istio/gateway.yml, that permits to expose the service. 
 <br>
-Then we create a destinationrule.yml https://github.com/alexben300502/starrr/blob/main/istio/destinationrule.yml that will define subsets for routing for the two versions, v1 and <br> 
-v2, of our userapi. 
+Then we create a destinationrule.yml https://github.com/alexben300502/starrr/blob/main/istio/destinationrule.yml that will define subsets for routing for the two versions, v1 and v2, of our userapi. 
 <br>
 Finally, we Create a VirtualService.yml https://github.com/alexben300502/starrr/blob/main/istio/virtualservice.yml  file to route and shift traffic between the two versions. The <br> goal is to routes incoming requests to the project-devops-service, with a heavenly weight of each v1 <br>and v2 subsets. 
  
@@ -355,7 +394,7 @@ The output of the command shows us the following message "Handling connection fo
 
 <br>
 
-Step n°4: We are finnaly able to access Graphana UI with localost:3000.
+Step n°4: We are finnaly able to access Graphana UI.
 
 ![Image36](images/Image36.png)
 
@@ -387,13 +426,10 @@ Our dashboard represents average rate of received bytes over time <br>
 
 ![Image43](images/Image43.png)
  <br>
-The alert type will notify if the average received bytes over a 5-minute period exceeds a certain 
-<br>
-threshold, which might indicate unusual network activity.<br>
+The alert type will notify if the average received bytes over a 5-minute period exceeds a certain threshold, which might indicate unusual network activity.<br>
 Then we managed to define all the parameters for the alert.<br>
  The specific query  is avg(rate(container_network_receive_bytes_total[5m])), which calculates the <br> average rate of received network bytes for containers over the last 5 minutes. <br>
- To the right, there's an alert configuration section where a threshold is set. The condition is <br>
- configured to trigger an alert if the value is above 800 bytes.
+ To the right, there's an alert configuration section where a threshold is set. The condition is configured to trigger an alert if the value is above 800 bytes.
  <br>
 
 ![Image44](images/Image44.png)

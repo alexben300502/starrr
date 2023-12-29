@@ -20,8 +20,8 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: "512Mi"  # Reduced from 1Gi to 512Mi
-              cpu: "500m"      # Reduced from 1000m to 500m (half a CPU)
+              memory: "512Mi"  # We set it 512Mi to avoid problems
+              cpu: "500m"      # We set it to half a CPU to avoid problems
           ports:
             - containerPort: 3000
           volumeMounts:
@@ -31,8 +31,8 @@ spec:
           image: redis
           resources:
             limits:
-              memory: "512Mi"  # Reduced from 1Gi to 512Mi
-              cpu: "500m"      # Reduced from 1000m to 500m (half a CPU)
+              memory: "512Mi"  # Same as just before
+              cpu: "500m"      
           ports:
             - containerPort: 6379
           volumeMounts:
