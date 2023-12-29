@@ -74,7 +74,8 @@ https://github.com/alexben300502/starrr/blob/main/.github/workflows/main_starrr-
 
 And here we can notice that our web application is deployed on Azure and visible at [ADD LIEN]. 
 
-# 3. IAC 
+# 3. Configure and provision a virtual environment and run application using the IaC approach
+
 
 For this part, the goal is to configure a VM for testing and laucnhing our application in a VM centos7 form the redhat family, thanks to Vagrant. We will be doing that in a folder iac.
 
@@ -113,10 +114,15 @@ docker push alexben3005/project-image:latest
 
 ![Image4](images/Image4.png)
 Here, we can see a docker Hub repository page.<br>
-The repository name alexben3005/userapi represents the unique identifier for the Docker image on Docker Hub.<br>
-So the presence of the repository and the "Last pushed" means that we had a built that occurred and that <br>
+The repository name userapi represents the unique identifier for the Docker image on Docker Hub.<br>
+Also, the "Public View" button, suggesting that this page can be viewed by the public
+And the presence of the repository and the "Last pushed" means that we had a built that occurred and that <br>
 the image has been successfully uploaded to Docker Hub. <br>
-
+There are many advantages of building images on Docker hub: Centralized repository,version control <br>
+Automated builds, Scalability, Public and Private Access and finally for Kubernetes.<br>
+Indeed,  Kubernetes will be able to use Docker images to create containers. The images will thus <br>
+represent the application environment. This ensures that the application run the same way in all kind <br>
+of possible environments.
 
 # 5  Make container orchestration using Docker Compose 
 
