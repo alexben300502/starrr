@@ -250,7 +250,12 @@ As a result we notice the creation of a persistent volume named "task-pv-volume"
 
 ![Image18](images/Image18.png)
 
-Also, by applying "kubectl apply -f storageclass.yaml" the result is the creation of a storage class ressource named "manual" in the Kubernetes cluster. We use Storage class to define diferent classes storage that can be dynamically provisionned to pods as persistent volumes. 
+Also, by applying 
+```
+kubectl apply -f storageclass.yaml
+```
+
+The result is the creation of a storage class ressource named "manual" in the Kubernetes cluster. We use Storage class to define diferent classes storage that can be dynamically provisionned to pods as persistent volumes. 
 
 ![Image19](images/Image19.png)
 
@@ -264,16 +269,19 @@ First one with a capacity of 10Gi and the second one name 'task-pv-volume' with 
 ![Image21](images/Image21.png)
 
 <br>
-Then, by applying the command 'kubectl get pods' we can notice that we have here three pods with <br>
-three diferent suffix names. We can see that each pod is ready with the 2/2 in the READY column that <br>
-meaning that each container of the pod is running. <br>
+Then, by applying the command 
+```
+kubectl get pods
+```
+We can notice that we have here three replicas with three diferent suffix names. We can see that each pod is ready with the 2/2 in the READY column that meaning that each container of the pod is running. <br>
 
 ![Image22](images/Image22.png)
 
-
-After that, by applying the command 'kubectl get services' we have a list of the various services<br>
-in the cluster. For example here we can see project-devops-service that exposes the NodePort at the <br>
-IP address "10.97.8.157" on port "30607/TCP and it is running since 72 minutes.
+After that, by applying the command 
+```
+kubectl get services
+```
+We have a list of the various services in the cluster. For example here we can see project-devops-service that exposes the NodePort at the IP address "10.97.8.157" on port "30607/TCP and it is running since 72 minutes.
 
 ![Image24](images/Image24.png)
 
@@ -281,35 +289,39 @@ We notice here the default Kubernetes service named kubernetes, the cluster-IP i
 
 ![Image23](images/Image23.png)
 
-Finnaly, we apply "kubectl get deployment" to be able to list deployments in the Kubernetes cluster. The output shows us that the name of the deployment is `project-devops`. 
-The number of ready pods for the deployment is 3/3, all of them are ready. <br>
+Finnaly, we apply 
+```
+kubectl get deployment
+```
+
+To be able to list deployments in the Kubernetes cluster. The output shows us that the name of the deployment is `project-devops`. 
 
 ![Image25](images/Image25.png)
 
 Everything seems to be working so we use minikube for the deployment :  <br>
-![Image26](images/Image26.png)
+![Image47](images/Image47.png)
+![Image46](images/Image48.png)
 
 
 We can notice the service that we saw when typing kubectl get services : project-devops-service<br>
 In the terminal, there are two sections : <br>
 
 The first section lists a service in Kubernetes:<br>
-The second section indicates that a tunnel has been started for the project-devops-service, which is <br>  a way to expose the service on a local machine for testing or development. 
+The second section indicates that a tunnel has been started for the project-devops-service, which is a way to expose the service on a local machine for testing or development. 
 
 
 # 7. Service Mesh with Istio 
 
-Service Mesh wit Istio has to be adjusted for the project, to firstly inject Istio in our cluster from the previous task and <br> to implement route requests between 2 different versions of userapi and traffic shifting between 2 different versions of userapi.<br> 
-
 To make service mesh, we have to use the cluster we used for the last part k8s. <br> 
-To be able to launch minikube, we had to disable the VM driver because the BIOS were not working in <br> Windows. <br>
-
-The command we used to do it is the following one: "kubectl config unset vm-driver" <br> 
+To be able to launch minikube, we had to disable the VM driver because the BIOS were not working in Windows. 
+```
+kubectl config unset vm-driver
+```
 
 After that, we allocated 7000 instead of 16384 in the minikube cluster. Thanks to the following command : 
-<br> 
-"minikube start --memory=7000 --cpus=4 --kubernetes-version=v1.27.0"
-<br> 
+```
+minikube start --memory=7000 --cpus=4 --kubernetes-version=v1.27.0
+```
 
 Then, once the cluster is launched, we can start to configure ISTIO. <br> 
 Once it’s done by running minikube, we configure istio with the commands :  <br> 
@@ -322,21 +334,23 @@ Then we apply manifest generate : <br>
 "istioctl manifest generate | kubectl apply -f -" <br> 
 
 And finally, we check if it worked :  <br> 
-"kubectl get pods -n istio-system "<br> 
+```
+kubectl get pods -n istio-system
+```
+<br> 
 
 ![Image27](images/Image27.png)
 
-And if we check, we see that now there are 3 pods including istio running : <br>
+And if we check, we see that now there are 3 pods including istio running for project devops : <br>
 
 ![Image28](images/Image28.png)
 
-Here, we can see that we have 3 pods so istio is well injected. <br>
-
-We can check it by running "kubectl describe pod <our_pod_name>".  <br>
+Here, we can see that we have 3/3 so istio is well injected. <br>
 
 ![Image29](images/Image29.png)
 
 After that, we have to apply our 3 documents that you can find in this folder : lien
+
 <br>
 Here we firstly have the gateway.yml file https://github.com/alexben300502/starrr/blob/main/istio/gateway.yml, that permits to expose the service. 
 <br>
@@ -350,8 +364,7 @@ After doing it, we can run the following command to apply those files :  <br>
 
 ![Image30](images/Image30.png)
 
-And then to check if it worked correctly and to see traffic flow and to see traffic shifting, we use kali <br> 
-as in the lab9. 
+And then to check if it worked correctly and to see traffic flow and to see traffic shifting, we use kali as in the lab9. 
 
 
 # 8 Implementing Monitoring to your containerized application 
@@ -400,8 +413,10 @@ Step n°4: We are finnaly able to access Graphana UI.
 ![Image36](images/Image36.png)
 
 Step n°5: Here we are going to deploy prometheus pod to localhost. <br>
-To be able to do this we are going to use the following command "kubectl -n istio-system port-forward <br>
-prometheus-db8b4588f-f972p 9090:9090" <br>
+To be able to do this we are going to use the following command 
+```
+kubectl -n istio-system port-forward prometheus-db8b4588f-f972p 9090:9090
+``` 
 The output indicates that the local machine has handled connections on port 9090 at least twice.
 
 ![Image37](images/Image37.png)
@@ -429,7 +444,11 @@ Our dashboard represents average rate of received bytes over time <br>
  <br>
 The alert type will notify if the average received bytes over a 5-minute period exceeds a certain threshold, which might indicate unusual network activity.<br>
 Then we managed to define all the parameters for the alert.<br>
- The specific query  is avg(rate(container_network_receive_bytes_total[5m])), which calculates the <br> average rate of received network bytes for containers over the last 5 minutes. <br>
+ The specific query  is 
+ ```
+ avg(rate(container_network_receive_bytes_total[5m]))
+ ```
+ Which calculates the <br> average rate of received network bytes for containers over the last 5 minutes. <br>
  To the right, there's an alert configuration section where a threshold is set. The condition is configured to trigger an alert if the value is above 800 bytes.
  <br>
 
