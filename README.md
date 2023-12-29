@@ -10,6 +10,7 @@ SI INTER TD 1 <br>
 # 1. Creation of a web application 
 
 We created an application using the programming language NodeJS, and for the database where we stored the data we used Redis. <br>
+The following folders: routes https://github.com/alexben300502/starrr/blob/main/userapi/src/routes/user.js and controllers https://github.com/alexben300502/starrr/blob/main/userapi/src/controllers/user.js allowed us to make changes for the user in the database. Thus controller will be called when it will receives routes.
 Also, we have configured ther server and the application to be able to run on the port 3000.  <br>
 After that, we covered the application with diferent test of diferent levels, in total we had 12 tests. <br>
 All the test are functioning and we had respectivelly : <br>
@@ -51,7 +52,7 @@ This test can be declined into four  tests: <br>
 
 # 2. Application of CI/CD pipeline 
 
-Here we are choosing to apply continuous integration and continuous delivery/deployment pipeline using Azure pipeline. <br>
+Here we are choosing to apply continuous integration and continuous delivery/deployment pipeline using Azure pipeline. <br> The file that was configured for this part is the following one : https://github.com/alexben300502/starrr/blob/main/.github/workflows/main_starrr-devops-project.yml .
 The deployment through Azure pipelines has been setup and rigorously tested. The screenshots illustrates the <br> successful execution of various tests. Validating every test, every commit that represent an integral <br>part of our CI/CD process is very important to ensure the stability and the functionality of our application. <br> 
 
 Indeed, Azure pipeline present diferent advantages as Scalability, Integrated Environment, Flexibility and <br>
@@ -131,8 +132,8 @@ able to run multiple-container Docker application. Indeed, we are able in single
 application services, networks and volumes. <br>
 
 
-In this part of our project, we will be creating a docker-compose.yml (mettre le lien) to start the <br>
-application. <br> 
+In this part of our project, we will be creating a docker-compose.yml  to start the <br>
+application https://github.com/alexben300502/starrr/blob/main/userapi/docker-compose.yml <br> 
 
 Our docker-compose.yml defines two services: <br>
 - web application service: it is setting up the correct envrionement for the web server to run. <br>
@@ -294,7 +295,8 @@ Here we firstly have the gateway.yml file, that permits to expose the service.
 Then we create a destinationrule.yml that will define subsets for routing for the two versions, v1 and <br> 
 v2, of our userapi. 
 <br>
-Finally, we Create a VirtualService.yml file to route and shift traffic between the two versions. The <br> goal is to routes incoming requests to the project-devops-service, with a heavenly weight of each v1 <br>and v2 subsets. 
+Finally, we Create a VirtualService.yml https://github.com/alexben300502/starrr/blob/main/istio/virtualservice.yml  file to route and shift traffic between the two versions. The <br> goal is to routes incoming requests to the project-devops-service, with a heavenly weight of each v1 <br>and v2 subsets. 
+For traffic shifting, we have also created gateway.yml https://github.com/alexben300502/starrr/blob/main/istio/gateway.yml & destinationrule.yml https://github.com/alexben300502/starrr/blob/main/istio/destinationrule.yml
 
 After doing it, we can run the following command to apply those files :  <br>
 "kubectl apply -f istio" <br>
