@@ -5,10 +5,10 @@ metadata:
   labels:
     app: project-devops
 spec:
-  replicas: 3
+  replicas: 3 # represents the number of desired pods
   selector:
     matchLabels:
-      app: project-devops
+      app: project-devops # represents the label applied to pods 
   template:
     metadata:
       labels:
@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
         - name: project-devops
-          image: alexben3005/userapi:latest  # Ensure this image is accessible and public on Docker Hub
+          image: alexben3005/userapi:latest  # Docker image for the container
           imagePullPolicy: IfNotPresent
           resources:
             limits:
               memory: "512Mi"  # We set it 512Mi to avoid problems
               cpu: "500m"      # We set it to half a CPU to avoid problems
           ports:
-            - containerPort: 3000
+            - containerPort: 3000 # represents which port the container will be listening on
           volumeMounts:
             - mountPath: /var/lib/redis/
               name: task-pv-storage

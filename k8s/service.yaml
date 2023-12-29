@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: project-devops-service
+  name: project-devops-service #Name of the service
 spec:
-  type: NodePort
+  type: NodePort #exposes the service on Nodes 
   selector:
-    app: project-devops
+    app: project-devops #selecting pods containing this label 
   ports:
-    - port: 3000
+    - port: 3000 #the pod on which the service will be listening to
