@@ -39,11 +39,10 @@ project-devops-7dccc8886f-7w25r   2/2     Running   18 (2m43s ago)   5d22h
 project-devops-7dccc8886f-cf9hc   2/2     Running   18 (2m43s ago)   5d22h
 project-devops-7dccc8886f-vk6xr   2/2     Running   18 (2m44s ago)   5d22h
 
-
-
 # Author Information
 - BENSARSA Alexandre
 - CHAOUACHI Soraya
+
 
 
 
