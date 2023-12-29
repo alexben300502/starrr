@@ -9,6 +9,6 @@ spec:
   - port:
       number: 38791 #Minikube port
       name: http
-      protocol: HTTP
+      protocol: HTTP #We use HTTP protocol
     hosts:
-    - "127.0.0.1" #localhost
+    - "127.0.0.1" #We restrict access to localhost

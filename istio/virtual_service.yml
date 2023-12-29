@@ -4,7 +4,7 @@ metadata:
   name: project-devops-service
 spec:
   hosts:
-  - project-devops-service
+  - project-devops-service #We match the service we configured in k8s
   http:
   - match:
     - headers:
@@ -14,13 +14,13 @@ spec:
     - destination:
         host: project-devops-service
         subset: v1
-      weight: 40 #We configure the weight for traffic shiffting and routing
+      weight: 40 #We configure the weight for traffic shiffting and routing. 40% to v1
   - match:
     - headers:
         version:
           exact: v2
     route:
     - destination:
-        host: project-devops-service
+        host: project-devops-service 
         subset: v2
-      weight: 60
+      weight: 60 #60% to v2
