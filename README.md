@@ -5,49 +5,50 @@ This is our Devops project that we managed to do after learning diferent tools d
 ```
 
 # Authors 
- BENSARSA Alexandre <br>
+BENSARSA Alexandre <br>
 CHAOUACHI Soraya <br>
 SI INTER TD 1 <br>
 
 # 1. Creation of a web application 
 
-We created an application using the programming language NodeJS, and for the database where we stored the data we used Redis. <br>
-The following folders: routes https://github.com/alexben300502/starrr/blob/main/userapi/src/routes/user.js and controllers https://github.com/alexben300502/starrr/blob/main/userapi/src/controllers/user.js allowed us to make changes for the user in the database. Thus, controller will be called when it will receives routes.
+We created an application using the programming language NodeJS, and for the database we used Redis. We choose to go from the lab 3 and enrich all the todo parts with tests, ... <br>
+
+The following folders: routes https://github.com/alexben300502/starrr/blob/main/userapi/src/routes/user.js and controllers https://github.com/alexben300502/starrr/blob/main/userapi/src/controllers/user.js are for using the database. Thus, controller will be called when it will receives routes.
 Also, we have configured the server and the application to be able to run on the port 3000.  <br>
 After that, we covered the application with diferent test of diferent levels, in total we had 12 tests. <br>
 All the test are functioning and we had respectivelly : <br>
 
 
--> one test for Redis connection 
+1. One test for Redis connection 
 This first test is checking the application's ability to perform the connection with Redis database but also
 the interaction to it. <br>
 This test tipically involves connecting to Redis server, performing read/write operation and disconnecting. 
 <br>
 
--> two tests for the configuration <br>
+2. Two tests for the configuration <br>
 This test concerns to ensure the correct configuration of the application and the environment the application is running in. <br>   
-- for the environement configuration test we are checking environment variables, server setting and that all the files are loaded, in our case the load of JSON configuration file and also the load of custom configuration.  <br>  
-- for the dependency configuration test its goal is to ensure that the application can correctly access and utilize its dependecies.  
+- For the environement configuration test we are checking environment variables, server setting and that all the files are loaded, in our case the load of JSON configuration file and also the load of custom configuration.  <br>  
+- For the dependency configuration test its goal is to ensure that the application can correctly access and utilize its dependecies.  
 <br>
 
--> four tests for the user REST API <br>
+3. Four tests for the user REST API <br>
 Those four tests are focusing on the user and most specifically on REST API endpoints. <br> 
 This test can be declined into four  tests: <br> 
 - The first one POST/user will create a new user by sending a POST request to the /user endpoints with the necessary parameters to create a new user. <br>
 - The second one also POST/user will validates API's error handling by intentionnaly sending incorrect parameters to the POST. <br>
-- The thrid one will concern GET/user and will ensure the 'Read Operation' by requesting user information<br> 
-- The last one will be similar to the POST test by checking the API handlor's error for GET requests and this by sending  the GET request to /user endpoint with incorrect query parameters. <br>
+- The thrid one will concern GET/user and will ensure the 'Read Operation' by requesting user information.<br> 
+- The last one will be similar to the POST test by checking the API handlor's error for GET requests and this by sending the GET request to /user endpoint with incorrect query parameters. <br>
 
 
--> five tests using CRUD methods for the user <br>
+4. five tests using CRUD methods for the user <br>
  CRUD stands for Create, Read, Update, and Delete. Thus, the five tests that uses CRUD methods are most of<br>
  them the basic operations that can be performed on the user data in the application. <br>
 
-1. Create test => testing if we can create a new user into our system <br>
-2. Read test => testing that the system can retrieve user information and thus by passing wrong user parameters. <br> 
-3. The third test's goal is to avoid creating an existing user. <br>
-4. This one is to be able to get a user by its username. <br> 
-5. The last one is to test getting a user when it does not exist. <br>
+-  Create test => testing if we can create a new user into our system <br>
+-  Read test => testing that the system can retrieve user information and thus by passing wrong user parameters. <br> 
+-  The third test's goal is to avoid creating an existing user. <br>
+-  This one is to be able to get a user by its username. <br> 
+-  The last one is to test getting a user when it does not exist. <br>
 
 ![Image1](images/Image1.png)
 
@@ -57,18 +58,17 @@ This test can be declined into four  tests: <br>
 
 Here we are choosing to apply continuous integration and continuous delivery/deployment pipeline using Azure pipeline. <br> The file that was configured for this part is the following one :<br> 
 https://github.com/alexben300502/starrr/blob/main/.github/workflows/main_starrr-devops-project.yml . <br>
-The deployment through Azure pipelines has been setup and rigorously tested. The screenshots illustrates the <br> successful execution of various tests. Validating every test, every commit that represents an integral <br>part of our CI/CD process is very important to ensure the stability and the functionality of our application. <br> 
 
-Indeed, Azure pipeline present diferent advantages as Scalability, Integrated Environment, Flexibility  <br>
-control and en Enchanced security.<br>
+The deployment through Azure pipelines has been setup and rigorously tested. The screenshots illustrates the successful execution of various tests. Validating every test, every commit that represents an integral part of our CI/CD process is very important to ensure the stability and the functionality of our application. <br> 
 
-We can  here notice a cloud servies platform that shows : <br>
+Indeed, Azure pipeline present diferent advantages as Scalability, Integrated Environment, Flexibility control and en Enchanced security.<br>
+
+We can here notice a cloud servies platform that shows : <br>
 - Azure Cache for Redis: which represents a cache for redis that enhances the performance of the application.<br>
 - Ressource Group corresponds to a container that holds ressources for an Azure solution. <br>
 - App Service: a platform for building, deploying and scaling web applications. <br> 
 
 ![Image2](images/Image2.png) <br>
-
 
 Here we can notice that our AppService is currently running which means that our web application is well deployed. <br>
 
@@ -86,8 +86,9 @@ And here we can notice that our web application is deployed on Azure and visible
 
 # 3. Configure and provision a virtual environment and run application using the IaC approach
 
-For this part, the goal is to configure a VM for testing and laucnhing our application in a VM centos form the redhat family, thanks to Vagrant. We will be doing that in a folder iac.
+For this part, the goal is to configure a VM for testing and laucnhing our application in a VM centos from the redhat family, thanks to Vagrant. We will be doing that in a folder iac.
 
+## Creation of Vagrant file (creating and access the Vm)
 
 Firstly, we create a vagrant file : https://github.com/alexben300502/starrr/blob/main/iac/Vagrantfile
 
@@ -109,7 +110,9 @@ vagrant ssh
 ![Image9](images/Image9.png)
 
 
-We had many troubles to access the Vm due to ssh key access, so we had to disable the automatic injection of key made by Vagrant.
+We had many troubles to access the Vm due to ssh key access, so we had to disable the automatic injection of instable key made by Vagrant.
+
+## Configuring our application (node and redis installation, health checks)
 
 After that, we configured playbook with a run.yml file that will run the roles and tasks, and 2 main.yml files : one for installing all dependencies and another for health checks. As you can see in this folder : https://github.com/alexben300502/starrr/tree/main/iac/playbooks
 
@@ -150,24 +153,19 @@ docker push alexben3005/project-image:latest
 Here, we can see a docker Hub repository page.<br>
 
 The repository named userapi represents the unique identifier for the Docker image on Docker Hub.<br>
-And the presence of the repository and the "Last pushed" means that we had a built that occurred and that <br>
-the image has been successfully uploaded to Docker Hub. <br>
-There are many advantages of building images on Docker hub: Centralized repository,version control <br>
-Automated builds, Scalability, Public and Private Access and finally for Kubernetes.<br>
-Indeed,  Kubernetes will be able to use Docker images to create containers. The images will thus <br>
-represent the application environment. This ensures that the application run the same way in all kind <br>
-of possible environments.
+And the presence of the repository and the "Last pushed" means that we had a built that occurred and that the image has been successfully uploaded to Docker Hub. <br>
+There are many advantages of building images on Docker hub: Centralized repository,version control Automated builds, Scalability, Public and Private Access and finally for Kubernetes.<br>
+
+Indeed, Kubernetes will be able to use Docker images to create containers. The images will thus represent the application environment. This ensures that the application run the same way in all kind of possible environments.
 
 
 # 5.  Make container orchestration using Docker Compose 
 
-To be able to containerize our development workflow, we have employed Docker compose, it is a tool that is<br>
-able to run multiple-container Docker application. Indeed, we are able in a single file to configure our <br>
-application services, networks and volumes. <br>
+To be able to containerize our development workflow, we have employed Docker compose, it is a tool that is able to run multiple-container Docker application. <br>
+Indeed, we are able in a single file, docker-compose.yml, to configure our application services, networks and volumes. <br>
 
 
-In this part of our project, we will be creating a docker-compose.yml  to start the <br>
-application https://github.com/alexben300502/starrr/blob/main/userapi/docker-compose.yml . <br> 
+In this part of our project, we will be creating a docker-compose.yml to launch the container and the application https://github.com/alexben300502/starrr/blob/main/userapi/docker-compose.yml . <br> 
 
 
 Our docker-compose.yml defines two services: <br>
@@ -195,18 +193,19 @@ Here we see that Node.js application is starting and we notice that the server i
 ![Image7](images/Image7.png)
 
 
-After that we check the application on http://localhost:3000/ and we can see that the print of "Hello World!"
-<br> is successful. 
+After that we check the application on localhost:3000 and we can see that the print of "Hello World!", so the application is launched successfully. 
 
 ![Image8](images/Image8.png)
 
+Also, when we check ou docker hub after launching docker-compose, we notice that the container userapi, with the two images redis and userapi inside it : 
+
+![Image48](images/Image48.png)
 
 # 6. Docker container orchestration with Kubernetes 
 
-Here, the goal is to Install Kubernetes cluster using Minikube. After that, we will create kubernetes <br>
-files such as deployments, persistent volumes, persistent volume claim and services. <br>
+Here, the goal is to Install Kubernetes cluster using Minikube. After that, we will create kubernetes <br>files such as deployments, persistent volumes, persistent volume claim and services. <br>
 
-Step 1: we are going to start a Minikube cluster. Minikube represents a tool allowing to run Kubernetes locally. To launch minikube, after installing it, we launch the following command : 
+1. We are going to start a Minikube cluster. Minikube represents a tool allowing to run Kubernetes locally. To launch minikube, after installing it, we launch the following command : 
 ```
 minikube start
 ```
@@ -233,11 +232,13 @@ minikube start --memory=7000 --cpus=4 --kubernetes-version=v1.27.0
 We put 7000 for an optimize use of kubernetes.
 
 
-Step 2: we are here going to apply our files to the cluster.
+2. We are here going to apply our files to the cluster.
 We execute the command :
+
 ```
 kubectl apply -f service.yaml
 ```
+
 To apply a configuration file named service.yaml to the Kubernetes cluster to enable network access to a set of Pods. As a result we can notice the creation in the cluster of a service named project-devops-service. <br>
 
 ![Image17](images/Image17.png)
@@ -249,19 +250,14 @@ kubetcl apply -f persistentvolume.yaml
 As a result we notice the creation of a persistent volume named "task-pv-volume" in the cluster to manage storage in the cluster preserving data even when pods are deleted.<br>
 
 ![Image18](images/Image18.png)
-
-Also, by applying 
-```
-kubectl apply -f storageclass.yaml
-```
-
-The result is the creation of a storage class ressource named "manual" in the Kubernetes cluster. We use Storage class to define diferent classes storage that can be dynamically provisionned to pods as persistent volumes. 
-
-![Image19](images/Image19.png)
+<br>
 
 In the same logic, we apply commands kubectl apply -f deployment.yaml to create deployment. Then kubectl apply -f persistentvolumeclaim.yaml to create persistentvolumeclaim to request storage resources from the cluster.
 
-Step 3: We are checking here that everything is working correctly. <br>
+**Note:** We could create a storage class ressource in the Kubernetes cluster. We use Storage class to define diferent classes storage that can be dynamically provisionned to pods as persistent volumes. <br>
+
+
+3. We are checking here that everything is working correctly. <br>
 
 By applying the command kubectl get persistentvolume we can see a list of two persistent volumes.<br>
 First one with a capacity of 10Gi and the second one name 'task-pv-volume' with a capacity of 1GI and has been up for 61 minutes.
@@ -285,9 +281,6 @@ We have a list of the various services in the cluster. For example here we can s
 
 ![Image24](images/Image24.png)
 
-We notice here the default Kubernetes service named kubernetes, the cluster-IP is 10.96.0.1 and represents an internal IP address reachable in the cluster and we also see that te port 444 is used for HTTPS traffic.
-
-![Image23](images/Image23.png)
 
 Finnaly, we apply 
 ```
@@ -327,8 +320,10 @@ Then, once the cluster is launched, we can start to configure ISTIO. <br>
 Once it’s done by running minikube, we configure istio with the commands :  <br> 
 "istioctl install --set profile=default -y" <br> 
 
-Then we enable the namespace : <br> 
-"kubectl label namespace default istio-injection=enabled" <br> 
+Then we enable injections in the namespace, which will enable proxy injection in the default namespace. It will avoid errors later wile deplloying with istio : <br> 
+```
+kubectl label namespace default istio-injection=enabled
+```
 
 Then we apply manifest generate : <br> 
 "istioctl manifest generate | kubectl apply -f -" <br> 
@@ -349,37 +344,96 @@ Here, we can see that we have 3/3 so istio is well injected. <br>
 
 ![Image29](images/Image29.png)
 
-After that, we have to apply our 3 documents that you can find in this folder : lien
+## Deploy the application with Istio
 
 <br>
-Here we firstly have the gateway.yml file https://github.com/alexben300502/starrr/blob/main/istio/gateway.yml, that permits to expose the service. 
+Here we firstly have the gateway.yml file https://github.com/alexben300502/starrr/blob/main/istio/gateway.yml, that permits to expose the service. In fact, if we configure the virtual service in this file (commented), we can deploy our application using istio thanks to this file. It will deploy the app thanks to the ingress gateway furnished by Istio, and thanks to the deloyment file configured before in the k8s section.
 <br>
-Then we create a destinationrule.yml https://github.com/alexben300502/starrr/blob/main/istio/destinationrule.yml that will define subsets for routing for the two versions, v1 and v2, of our userapi. 
+
+Once the file in configured and applied in the cluster, we check if everything is working thanks to the following command : 
+```
+istioctl analyze
+```
+And we wee that there are no issues : 
+
+![Image49](images/Image49.png)
+
+Then we create a minikube tunnel and we run all the installations to access the url address where the application is deployed : 
+
+![Image50](images/Image50.png)
+![Image51](images/Image51.png)
+
+**Note:** We had to switch from powershell to gitbash to be able to apply the export commands. <br>
+
+We can access it online and see that the applications is well deployed. 
+
+![Image52](images/Image52.png)
+
+To see how it works, we use KIALI. After applying all the commands to configure and access kali dashboard (thanks to the addons folder provided by Istio), we see that we can see the traffic graph after enabling nodes : 
+
+![Image53](images/Image53.png)
+
+
+## Request routing and Traffic shiftting between two versions of userapi
+
+1. To permits taht, we firstly created a v2 of our app and pushing a new tag of our app to the docker hub? In our case, it's v3, while the first one was latest. <br>
+
+![Image54](images/Image54.png)
+
+2. Once this image is pushed, we create deloymentv2.yaml file, which is a duplicate of deployment.yaml, but corresponds to v2 of our app with pulling the v3 tag of our image.
+
+Once it's done, we apply this new deployment to our cluster as following : 
+
+![Image55](images/Image55.png)
+
+That means that both of our versions are well deployed in our cluster. <br>
+
+3. Then we create a destinationrule.yml https://github.com/alexben300502/starrr/blob/main/istio/destinationrule.yml that will define subsets for v1 and v2 and help istio understand aboutb the two different versions of the app. 
 <br>
-Finally, we Create a VirtualService.yml https://github.com/alexben300502/starrr/blob/main/istio/virtualservice.yml  file to route and shift traffic between the two versions. The <br> goal is to routes incoming requests to the project-devops-service, with a heavenly weight of each v1 <br>and v2 subsets. 
+
+4. Finally, we Create a VirtualService.yml https://github.com/alexben300502/starrr/blob/main/istio/virtualservice.yml  file to route and shift traffic between the two versions defined in v1 and v2 subsets. Here in our case, 70% of the traffic goes to v1, and 30% goes to v2. 
+After applying them in the cluster, We test it by deploying it with istio as we did in the first part : 
+
+![Image56](images/Image56.png)
+![Image57](images/Image57.png)
  
 
-After doing it, we can run the following command to apply those files :  <br>
-"kubectl apply -f istio" <br>
+We can see that routing is working because when we refresh frequently the page, sometimes it’s Hello World (v1) or “Welcome …” (v2). 
+Furthermore, the traffic shifting is working because approximatively 70% of the time, it’s "hello world" that is displayed (v1), and 30% is Welcome … (v2). We will use Kiali dashboard graph to verify that :
 
-![Image30](images/Image30.png)
+We use Kiali to see the traffic : 
 
-And then to check if it worked correctly and to see traffic flow and to see traffic shifting, we use kali as in the lab9. 
+![Image59](images/Image59.png)
 
+We see here that we send 500 curl requests to see more precise traffic in kiali dashboard : <br>
+
+![Image61](images/Image61.png)
+
+We see that we have in fact routing between the versions of our app. We can see when we display traffic in Kiali like in the following picture : 
+
+
+![Image60](images/Image60.png)
+
+There is in fact 70 % that goes to v1 "Hello World" and 30% that goes to the v2.
 
 # 8 Implementing Monitoring to your containerized application 
-Step n°1: Using services and deployments from our Istio installation folder. <br>
+
+1. Using services and deployments from our Istio installation folder. <br>
+We apply the addons, as we did for using kali dashboard with following command : 
+```
+kubectl apply -f istio/addons
+```
 
 ![Image31](images/Image31.png)
 
-Step n°2: Verification that deployments, services and pods are running. <br>
+2. Verification that deployments, services and pods are running. <br>
 We first verifiy that deployments are running correctly by executing the following command : "kubectl <br>
 get deployments -n istio-system" . <br>
 The output after the execution of this command is showing us 4 deployments: <br>
--Graphana <br>
--Jaeger<br>
--Kiali <br>
--Promotheus <br>
+- Graphana <br>
+- Jaeger<br>
+- Kiali <br>
+- Promotheus <br>
 
 ![Image32](images/Image32.png)
 
@@ -399,21 +453,26 @@ they were  started simultaneously as part of the Istio service mesh setup.
 
 ![Image34](images/Image34.png)
 
-Step n°3:  To be able to  forward a local port to a port on a Grafana pod within the Istio-system  <br>
-we are going to use the command "kubectl -n istio-system port-forward <br>
-grafana-b8bbdc84d-4s715" that includes the pod we have seen in past images. <br>
+3. To be able to  forward a local port to a port on a Grafana pod within the Istio-system we are going to use the command :
+
+```
+kubectl -n istio-system port-forward grafana-b8bbdc84d-4s715
+```
+
+That includes the pod we have seen in past images. <br>
 The output of the command shows us the following message "Handling connection for 3000"  suggest that <br> there have been several connections made to the local port, which are being forwarded to the Grafana <br> service.
 
 ![Image35](images/Image35.png)
 
 <br>
 
-Step n°4: We are finnaly able to access Graphana UI.
+4. We are finnaly able to access Graphana UI.
 
 ![Image36](images/Image36.png)
 
-Step n°5: Here we are going to deploy prometheus pod to localhost. <br>
+5. Here we are going to deploy prometheus pod to localhost. <br>
 To be able to do this we are going to use the following command 
+
 ```
 kubectl -n istio-system port-forward prometheus-db8b4588f-f972p 9090:9090
 ``` 
@@ -421,21 +480,22 @@ The output indicates that the local machine has handled connections on port 9090
 
 ![Image37](images/Image37.png)
 
-Step n°6: Accessing prometheus UI with localhost:9090 <br>
+6. Accessing prometheus UI with localhost:9090 <br>
 
 ![Image40](images/Image40.png)
 
-Step n°7: Checking prometheus status
+7. Checking prometheus status
 
 ![Image41](images/Image41.png)
 
-Step n°8: Link in Graphana to Prometheus server
+8. Link in Graphana to Prometheus server
+
 To be able to do the link between them we go on Graphana in settings and data Source and we put <br>
 into the HTTP part the url of prometheus local host which is : http://localhost:9090 <br>
 
 ![Image42](images/Image42.png)
 
-Step n°9: Creating Alerts 
+9. Creating Alerts 
 
 We started by choosing a dashboard and importing it on graphana by its ID. <br>
 Our dashboard represents average rate of received bytes over time <br>
@@ -444,6 +504,7 @@ Our dashboard represents average rate of received bytes over time <br>
  <br>
 The alert type will notify if the average received bytes over a 5-minute period exceeds a certain threshold, which might indicate unusual network activity.<br>
 Then we managed to define all the parameters for the alert.<br>
+
  The specific query  is 
  ```
  avg(rate(container_network_receive_bytes_total[5m]))

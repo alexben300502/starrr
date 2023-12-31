@@ -5,10 +5,9 @@ services:
     depends_on:
       - redis  #we specify that the web serviceis here depending on the redis service
     build:
-      context: /Users/hello/Desktop/ÉCOLE/DEVOPS/starrr/userapi #location of the docker build context 
+      #context: ./userapi #location of the docker build context, in our case we are in the same place
       dockerfile: Dockerfile
     container_name: projectdevopsssss
-  
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules 
@@ -17,7 +16,6 @@ services:
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
-
   redis:
     image: redis #using official redis image from Docker Hub
     volumes:

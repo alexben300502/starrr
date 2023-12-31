@@ -7,4 +7,6 @@ spec:
   selector:
     app: project-devops #selecting pods containing this label 
   ports:
-    - port: 3000 #the pod on which the service will be listening to
+    - name: http  # Add the protocol name as prefix
+      port: 3000
+      targetPort: 3000

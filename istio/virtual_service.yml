@@ -1,26 +1,19 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: project-devops-service
+  name: project-devops-virtualservice
 spec:
   hosts:
-  - project-devops-service #We match the service we configured in k8s
+  - "*"
+  gateways: 
+  - gateway #we use the gateway that uses ingressgateway
   http:
-  - match:
-    - headers:
-        version:
-          exact: v1
-    route:
+  - route:
     - destination:
         host: project-devops-service
         subset: v1
-      weight: 40 #We configure the weight for traffic shiffting and routing. 40% to v1
-  - match:
-    - headers:
-        version:
-          exact: v2
-    route:
+      weight: 70 # 70 percent of the traffic goes to v1
     - destination:
-        host: project-devops-service 
+        host: project-devops-service
         subset: v2
-      weight: 60 #60% to v2
+      weight: 30 # 30 percent of the traffic goes to v2

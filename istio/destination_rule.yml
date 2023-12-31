@@ -1,13 +1,13 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: project-devops-service 
+  name: project-devops-destination-rule  
 spec:
-  host: project-devops-service
+  host: project-devops-service #We reuse the service?yml defined in k8s
   subsets:
-  - name: v1 #We create two subsets :  v1 and v2 to permit allocate them different height and navigate between them
+  - name: v1 #version 1 of the app (tag :latest)
     labels:
       version: v1
-  - name: v2
+  - name: v2 #version 2 of the app (tag: v3)
     labels:
       version: v2

@@ -1,18 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: project-devops
+  name: project-devops #Name of the deployment
   labels:
     app: project-devops
+    version: v1
 spec:
-  replicas: 3 # represents the number of desired pods
+  replicas: 3 # represents the number of desired pods, here we use 3 replicas
   selector:
     matchLabels:
       app: project-devops # represents the label applied to pods 
   template:
     metadata:
       labels:
-        app: project-devops
+        app: project-devops 
+        version: v1
     spec:
       containers:
         - name: project-devops
@@ -26,8 +28,8 @@ spec:
             - containerPort: 3000 # represents which port the container will be listening on
           volumeMounts:
             - mountPath: /var/lib/redis/
-              name: task-pv-storage
-        - name: redis-deploy
+              name: storage-pvc
+        - name: redis-deploy #redis deployment
           image: redis
           resources:
             limits:
@@ -37,7 +39,8 @@ spec:
             - containerPort: 6379
           volumeMounts:
             - mountPath: /var/lib/redis/
-              name: task-pv-storage
-
+              name: storage-pvc
       volumes:
-        - name: task-pv-storage
+        - name: storage-pvc 
+          persistentVolumeClaim: #We specify the PVC
+            claimName: task-pv-claim  

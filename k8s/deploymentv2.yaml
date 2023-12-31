@@ -1,0 +1,47 @@
+#We just copy the configuration of deployment, but for the second version of the app 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-devops-v2
+  labels:
+    app: project-devops
+    version: v2
+spec:
+  replicas: 3 # represents the number of desired pods
+  selector:
+    matchLabels:
+      app: project-devops # represents the label applied to pods 
+  template:
+    metadata:
+      labels:
+        app: project-devops
+        version: v2
+    spec:
+      containers:
+        - name: project-devops
+          image: alexben3005/userapi:v3  # Updated Docker image for the container
+          imagePullPolicy: IfNotPresent #We pull the image if it was not done before
+          resources:
+            limits:
+              memory: "512Mi"  # Memory limit
+              cpu: "500m"      # CPU limit
+          ports:
+            - containerPort: 3000 # Port the container will be listening on
+          volumeMounts:
+            - mountPath: /var/lib/redis/
+              name: storage-pvc
+        - name: redis-deploy
+          image: redis
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /var/lib/redis/
+              name: storage-pvc
+      volumes:
+        - name: storage-pvc
+          persistentVolumeClaim:
+            claimName: task-pv-claim

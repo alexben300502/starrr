@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: task-pv-volume # represents the name of the PersistentVolume
+  name: pv
   labels:
     type: local
 spec:
-  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
     path: "/mnt/data" # path where the storage is located 
+  #storageClassName:  #If we wanted to use dynamic provisioning, we would have put a storageclass here
