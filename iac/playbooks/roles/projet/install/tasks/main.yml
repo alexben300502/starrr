@@ -6,7 +6,7 @@
       - policycoreutils-python
       - openssh-server
     state: latest
-
+#Installation of packages for npm, nodes, redis, ...
 - name: Install npm
   yum:
     name: npm
@@ -21,7 +21,7 @@
   yum:
     name: redis
     state: latest
-
+#We enable redis
 - name: Enable and start redis
   service:
     name: redis
@@ -47,10 +47,10 @@
   service:
     name: firewalld
     state: reloaded
-
+#Installing userapi in the VM
 - name: Copy userapi application code to VM
   copy:
-    src: "/opt/userapi/"
+    src: "/opt/userapi/" #Path to enter in the VM to run the app
     dest: "/opt/userapi/"
     remote_src: yes
 

@@ -2,7 +2,7 @@
 - hosts: all
   # Run commands as root
   become: true
-  # Roles to be executed on these hosts
+  # Roles to be executed on the hosts
   roles:
   - role: projet/install
     tags: install
