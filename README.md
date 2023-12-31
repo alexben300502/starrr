@@ -266,17 +266,18 @@ After that, by applying the command :
 ```
 kubectl get services
 ```
-We have a list of the various services in the cluster, in which we have the one for our project project-devops-service.
+We have a list of the various services in the cluster, because of the previous labs and tests for them and we did not at this moment destroyed and recreate a cluster, in which we have the one for our project project-devops-service.
 
 ![Image24](images/Image24.png)
 
 
-Finnaly, we apply 
+Finnaly, we apply : 
+
 ```
 kubectl get deployment
 ```
 
-To be able to list deployments in the Kubernetes cluster. The output shows us that the name of the deployment is `project-devops`, as defined in the deployment file. 
+To be able to list deployments in the Kubernetes cluster. The output shows us that the name of the deployment is "project-devops, as defined in the deployment file. 
 
 ![Image25](images/Image25.png)
 <br>
@@ -306,13 +307,14 @@ minikube start --memory=7000 --cpus=4 --kubernetes-version=v1.27.0
 
 Then, once the cluster is launched, we can start to configure ISTIO. <br> 
 Once it’s done by running minikube, we configure istio with the commands :  <br> 
-"istioctl install --set profile=default -y" <br> 
+```
+istioctl install --set profile=default -y
+```
 
 Then we enable injections in the namespace, which will enable proxy injection in the default namespace. It will avoid errors later wile deplloying with istio : <br> 
 ```
 kubectl label namespace default istio-injection=enabled
 ```
-
 Then we apply manifest generate : <br> 
 ```
 istioctl manifest generate | kubectl apply -f -
@@ -337,8 +339,9 @@ Here, we can see that we have 3/3 so istio is well injected. <br>
 
 ## Deploy the application with Istio
 
-<br>
-Here we firstly have the gateway.yml file https://github.com/alexben300502/starrr/blob/main/istio/gateway.yml, that permits to expose the service. In fact, if we configure the virtual service in this file (commented), we can deploy our application using istio thanks to this file. It will deploy the app thanks to the ingress gateway furnished by Istio, and thanks to the deloyment file configured before in the k8s section.
+Here we firstly have the [gateway.yml](https://github.com/alexben300502/starrr/blob/main/istio/gateway.yml), that permits to expose the service. 
+In fact, if we configure the virtual service in this file (commented), we can deploy our application using istio thanks to this file. 
+It will deploy the app thanks to the ingress gateway furnished by Istio, and thanks to the deloyment file configured before in the k8s section.
 <br>
 
 Once the file in configured and applied in the cluster, we check if everything is working thanks to the following command : 
@@ -354,7 +357,7 @@ Then we create a minikube tunnel and we run all the installations to access the 
 ![Image50](images/Image50.png)
 ![Image51](images/Image51.png)
 
-**Note:** We had to switch from powershell to gitbash to be able to apply the export commands. <br>
+*Note:* We had to switch from powershell to gitbash to be able to apply the export commands. <br>
 
 We can access it online and see that the applications is well deployed. 
 
@@ -502,7 +505,7 @@ Our dashboard represents average rate of received bytes over time <br>
 The alert type will notify if the average received bytes over a 5-minute period exceeds a certain threshold, which might indicate unusual network activity.<br>
 Then we managed to define all the parameters for the alert.<br>
 
-The specific query  is 
+The specific query is 
 ```
  avg(rate(container_network_receive_bytes_total[5m]))
 ```
@@ -512,13 +515,13 @@ To the right, there's an alert configuration section where a threshold is set. T
 
 ![Image44](images/Image44.png)
 
- Finnaly we set the notifications parameters by putting graphana default email.  <br> 
+Finnaly we set the notifications parameters by putting graphana default email.  <br> 
 
- # BONUS
+# BONUS
 
- ## We choose to do a bonus : integrating Swagger UI to the source code, a documenting package to your source code. 
+### We choose to do a bonus : integrating Swagger UI to the source code, a documenting package to your source code. 
 
- For doing that, we follow the next steps. We followed this [guide](https://www.npmjs.com/package/express-swagger-generator) to implement it : 
+For doing that, we follow the next steps. We followed this [guide](https://www.npmjs.com/package/express-swagger-generator) to implement it : 
 
 1. We install the package inside userapi by running this command : 
 
