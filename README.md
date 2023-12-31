@@ -266,7 +266,7 @@ After that, by applying the command :
 ```
 kubectl get services
 ```
-We have a list of the various services in the cluster, because of the previous labs and tests for them and we did not at this moment destroyed and recreate a cluster, in which we have the one for our project project-devops-service.
+We have a list of the various services in the cluster, because of the previous labs and tests for them and we did not at this moment destroyed and recreate a cluster. But in this list, the one we are interested in for our project is project-devops-service.
 
 ![Image24](images/Image24.png)
 
