@@ -1,6 +1,6 @@
 # DEVOPS PROJECT
 
-### This is our Devops project that we managed to do after learning diferent tools during the semester. 
+### This is our Devops project that we managed to do after learning different tools during the semester. 
 
 
 # Authors 
