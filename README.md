@@ -1,8 +1,7 @@
 # DEVOPS PROJECT
 
-```
-This is our Devops project that we managed to do after learning diferent tools during the semester. 
-```
+### This is our Devops project that we managed to do after learning diferent tools during the semester. 
+
 
 # Authors 
 BENSARSA Alexandre <br>
@@ -543,5 +542,9 @@ After configuring all of that, we can see that all is well configured in the fol
 ![Image64](images/Image64.png)
 
 
-Here we can see that when we access the page /api-docs in our browser after the localhost, we see that the routes are well documentated and we can test some of them by entering a username for example. 
+Here we can see that when we access the page /api-docs in our browser after the localhost, we see that the routes are well documentated. 
+We can test some of them by entering a username for example :
+
+![Image65](images/Image65.png)
+
 
