@@ -514,3 +514,34 @@ To the right, there's an alert configuration section where a threshold is set. T
 ![Image44](images/Image44.png)
 
  Finnaly we set the notifications parameters by putting graphana default email.  <br> 
+
+ # BONUS
+
+ ## We choose to do a bonus : integrating Swagger UI to the source code, a documenting package to your source code. 
+
+ For doing that, we follow the next steps. We followed this [guide](https://www.npmjs.com/package/express-swagger-generator) to implement it : 
+
+1. We install the package inside userapi by running this command : 
+
+```
+npm i express-swagger-generator --save-dev
+```
+
+2. Then we have to implement swagger UI inside application. To do that, we integrate the snippet of code for the installation inside our [index.js](https://github.com/alexben300502/starrr/blob/main/userapi/src/index.js) file.<br>
+
+We can see here that it has worked, when we access the page /api-docs in our browser after the localhost : 
+
+![Image62](images/Image62.png)
+
+3. After that, we have to implement to documentation of the different routes. In our case, since we only have the route [user.js](https://github.com/alexben300502/starrr/blob/main/userapi/src/routes/user.js), we will implement it in this file. 
+We firstly set the model definitions as we define the structure of response. Then we set the structure for a user, and then we document the methods of the REST API, such as GET or POST in our case.<br>
+
+After configuring all of that, we can see that all is well configured in the following pictures : 
+
+
+![Image63](images/Image63.png)
+![Image64](images/Image64.png)
+
+
+Here we can see that when we access the page /api-docs in our browser after the localhost, we see that the routes are well documentated and we can test some of them by entering a username for example. 
+

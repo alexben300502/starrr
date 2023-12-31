@@ -9,4 +9,4 @@ spec:
   ports:
     - name: http  # Add the protocol name as prefix
       port: 3000
-      targetPort: 3000
+      targetPort: 3000 # For istio, this typo match the conventionnal way to define port in service
