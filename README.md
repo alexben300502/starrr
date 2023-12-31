@@ -23,13 +23,11 @@ This first test is checking the application's ability to perform the connection 
 the interaction to it. <br>
 This test tipically involves connecting to Redis server, performing read/write operation and disconnecting. 
 <br>
-
 2. Two tests for the configuration <br>
 This test concerns to ensure the correct configuration of the application and the environment the application is running in. <br>   
 - For the environement configuration test we are checking environment variables, server setting and that all the files are loaded, in our case the load of JSON configuration file and also the load of custom configuration.  <br>  
 - For the dependency configuration test its goal is to ensure that the application can correctly access and utilize its dependecies.  
 <br>
-
 3. Four tests for the user REST API <br>
 Those four tests are focusing on the user and most specifically on REST API endpoints. <br> 
 This test can be declined into four  tests: <br> 
@@ -37,7 +35,6 @@ This test can be declined into four  tests: <br>
 - The second one also POST/user will validates API's error handling by intentionnaly sending incorrect parameters to the POST. <br>
 - The thrid one will concern GET/user and will ensure the 'Read Operation' by requesting user information.<br> 
 - The last one will be similar to the POST test by checking the API handlor's error for GET requests and this by sending the GET request to /user endpoint with incorrect query parameters. <br>
-
 
 4. five tests using CRUD methods for the user <br>
  CRUD stands for Create, Read, Update, and Delete. Thus, the five tests that uses CRUD methods are most of<br>
@@ -54,8 +51,7 @@ This test can be declined into four  tests: <br>
 
 # 2. Application of CI/CD pipeline 
 
-Here we are choosing to apply continuous integration and continuous delivery/deployment pipeline using Azure pipeline. <br> The file that was configured for this part is the following one :<br> 
-[project.yml](https://github.com/alexben300502/starrr/blob/main/.github/workflows/main_starrr-devops-project.yml) . <br><br>
+Here we are choosing to apply continuous integration and continuous delivery/deployment pipeline using Azure pipeline. <br> The file that was configured for this part is the following one : [project.yml](https://github.com/alexben300502/starrr/blob/main/.github/workflows/main_starrr-devops-project.yml) . <br>
 
 The deployment through Azure pipelines has been setup and rigorously tested. The screenshots illustrates the successful execution of various tests. Validating every test, every commit that represents an integral part of our CI/CD process is very important to ensure the stability and the functionality of our application. <br> 
 
@@ -72,7 +68,7 @@ Here we can notice that our AppService is currently running which means that our
 
 ![Image3](images/Image3.png)
 
-Here is the link to our node js [file](https://github.com/alexben300502/starrr/blob/main/.github/workflows/node.js.yml) that made possible the continuous integration <br>
+Here is the link to our node js [file](https://github.com/alexben300502/starrr/blob/main/.github/workflows/node.js.yml) that made possible the continuous integration. <br>
 
 And here's the link of the [file](https://github.com/alexben300502/starrr/blob/main/.github/workflows/main_starrr-devops-project.yml) that made possible the continuous deployment on Azure pipeline :
 <br>
@@ -84,7 +80,7 @@ And here we can notice that our web application is deployed on Azure and visible
 
 # 3. Configure and provision a virtual environment and run application using the IaC approach
 
-For this part, the goal is to configure a VM for testing and launching our application in a VM centos from the redhat family, thanks to Vagrant. We will be doing that in a folder iac.
+For this part, the goal is to configure a VM for testing and launching our application in a VM centos from the redhat family, thanks to Vagrant. We will be doing that in a folder [iac](https://github.com/alexben300502/starrr/tree/main/iac).
 
 ## Creation of Vagrant file (creating and access the Vm)
 
@@ -168,9 +164,9 @@ docker-compose up
 <br>
 Also, as we can see on the image, the terminal indicates the successful creation of various components that represents basic elements in a containerized application; such as network, volume, and containers.
 
-<br> 
+
 ![Image5](images/Image5.png)
-<br> 
+
 
 Here we can notice from the terminal that we have a container creation, redis that is starting, also server inizalization with redis server that is listening on port 6379. Finally we can notice that the server finished its initialisation and will be from now ready to accept connections over TCP protocols.
 
