@@ -16,24 +16,23 @@ Also, we have configured the server and the application to be able to run on the
 After that, we covered the application with diferent test of diferent levels, in total we had 12 tests. <br>
 All the test are functioning and we had respectivelly : <br>
 
-
 1. One test for Redis connection 
 This first test is checking the application's ability to perform the connection with Redis database but also
 the interaction to it. <br>
 This test tipically involves connecting to Redis server, performing read/write operation and disconnecting. 
-<br>
+
 2. Two tests for the configuration <br>
 This test concerns to ensure the correct configuration of the application and the environment the application is running in. <br>   
 - For the environement configuration test we are checking environment variables, server setting and that all the files are loaded, in our case the load of JSON configuration file and also the load of custom configuration.  <br>  
 - For the dependency configuration test its goal is to ensure that the application can correctly access and utilize its dependecies.  
-<br>
+
 3. Four tests for the user REST API <br>
 Those four tests are focusing on the user and most specifically on REST API endpoints. <br> 
 This test can be declined into four  tests: <br> 
 - The first one POST/user will create a new user by sending a POST request to the /user endpoints with the necessary parameters to create a new user. <br>
 - The second one also POST/user will validates API's error handling by intentionnaly sending incorrect parameters to the POST. <br>
 - The thrid one will concern GET/user and will ensure the 'Read Operation' by requesting user information.<br> 
-- The last one will be similar to the POST test by checking the API handlor's error for GET requests and this by sending the GET request to /user endpoint with incorrect query parameters. <br>
+- The last one will be similar to the POST test by checking the API handlor's error for GET requests and this by sending the GET request to /user endpoint with incorrect query parameters. 
 
 4. five tests using CRUD methods for the user <br>
  CRUD stands for Create, Read, Update, and Delete. Thus, the five tests that uses CRUD methods are most of<br>
