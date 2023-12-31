@@ -1,3 +1,8 @@
+#Here we define 2 services : web for our web app userapi, and then the redis service.
+#Now that we have done Istio part with 2 different versions of our app, defined in 2 tags in our docker image userapi.
+#We could, if we wanted, define another container web2, who would pull the second tag of oue app v3
+#If we do that, we would define another port for the v2 of our app to run.
+#Then, when we would launch docker-compose up, the two different versions of our app would run on the two ports defined, with redis.
 version: '3'
 
 services:
