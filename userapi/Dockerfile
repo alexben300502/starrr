@@ -13,5 +13,5 @@ COPY . .
 # We use port 3000 in the index file
 EXPOSE 3000
 
-# Définir la commande pour démarrer l'application.
+# efine how to launch the app 
 CMD ["npm", "start"]

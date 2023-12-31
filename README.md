@@ -44,8 +44,8 @@ This test can be declined into four  tests: <br>
 -  This one is to be able to get a user by its username. <br> 
 -  The last one is to test getting a user when it does not exist. <br>
 
-![Image1](images/Image1.png)
 
+![Image1](images/Image1.png)
 
 # 2. Application of CI/CD pipeline 
 
