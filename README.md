@@ -34,7 +34,7 @@ This test can be declined into four  tests: <br>
 - The thrid one will concern GET/user and will ensure the 'Read Operation' by requesting user information.<br> 
 - The last one will be similar to the POST test by checking the API handlor's error for GET requests and this by sending the GET request to /user endpoint with incorrect query parameters. 
 
-4. five tests using CRUD methods for the user <br>
+4. Five tests using CRUD methods for the user <br>
  CRUD stands for Create, Read, Update, and Delete. Thus, the five tests that uses CRUD methods are most of<br>
  them the basic operations that can be performed on the user data in the application. <br>
 
